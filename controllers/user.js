@@ -1,19 +1,19 @@
 const UserModel = require('../models/user.js')
 const {matchedData} = require('express-validator')
+const {encrypt} = require('../utils/handlePassword.js')
 
 const createItem = async (req, res) => {
     try{
+        req = matchedData(req)
+        console.log(req)
         console.log("------------------------")
-        console.log(req.body)
-        console.log("------------------------")
-        body = matchedData(req)
-        console.log(body)
-        console.log("------------------------")
+        password = await encrypt(req.password)
+        body = {...req, password}
         const result = await UserModel.create(body)
         res.status(201).send(result)
         console.log("------------------------")
     } catch(err){
-        if(err == 11000){
+        if(err.code == 11000){
             res.status(409).send("ERROR_EMAIL_ALREADY_EXISTS")
         }
         else{
