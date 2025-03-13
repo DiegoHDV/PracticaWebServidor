@@ -8,4 +8,9 @@ userRouter.get('/', (req, res) => {
     res.send("Funciona")
 })
 
+userRouter.post('/register', (req, res) => {
+    res.send("Ta")
+})
+
+
 module.exports = userRouter
