@@ -1,6 +1,7 @@
 const UserModel = require('../models/user.js')
 const {matchedData} = require('express-validator')
 const {encrypt} = require('../utils/handlePassword.js')
+const crypto = require('crypto')
 
 const createItem = async (req, res) => {
     try{
@@ -8,7 +9,8 @@ const createItem = async (req, res) => {
         console.log(req)
         console.log("------------------------")
         password = await encrypt(req.password)
-        body = {...req, password}
+        code_validation = crypto.randomBytes(3).toString('hex')
+        body = {...req, password, code_validation}
         const result = await UserModel.create(body)
         res.status(201).send(result)
         console.log("------------------------")

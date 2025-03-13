@@ -11,7 +11,8 @@ const UserScheme = new mongoose.Schema(
         role: {
             type: ["user", "admin"],
             default: "user"
-        }
+        },
+        code_validation: String
     },
     {
         timestamps: true,
