@@ -1,2 +1,13 @@
 ###
 GET http://localhost:3000/practica/user
+
+###
+POST http://localhost:3000/practica/user/register
+Content-Type: application/json
+
+{
+    "name": "Primero",
+    "age": 20,
+    "email": "email@gmail.com",
+    "password": 12345678
+}
