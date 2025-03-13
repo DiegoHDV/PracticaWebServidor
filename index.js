@@ -15,3 +15,5 @@ app.listen(port, () => {
     console.log("Servidor escuchando en el puerto: ", port)
 })
 
+const dbConnect = require('./config/mongo.js')
+dbConnect()
