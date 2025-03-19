@@ -6,7 +6,7 @@ POST http://localhost:3000/practica/user/register
 Content-Type: application/json
 
 {
-    "name": "ProbandoSendEmail",
+    "name": "ProbandoToken",
     "age": 20,
     "email": "jopetis28@gmail.com",
     "password": "12345678"
