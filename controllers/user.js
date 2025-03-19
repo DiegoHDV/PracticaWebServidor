@@ -10,7 +10,11 @@ const createItem = async (req, res) => {
         console.log("------------------------")
         password = await encrypt(req.password)
         code_validation = crypto.randomBytes(3).toString('hex')
-        body = {...req, password, code_validation}
+        validado = false
+        intentos = process.env.NUM_INTENTOS
+        bloqueado = false
+        body = {...req, password, code_validation, validado, intentos, bloqueado}
+        console.log(body)
         const result = await UserModel.create(body)
         res.status(201).send(result)
         console.log("------------------------")

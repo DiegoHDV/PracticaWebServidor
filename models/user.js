@@ -12,7 +12,10 @@ const UserScheme = new mongoose.Schema(
             type: ["user", "admin"],
             default: "user"
         },
-        code_validation: String
+        code_validation: String,
+        validado: Boolean,
+        intentos: Number,
+        bloqueado: Boolean
     },
     {
         timestamps: true,
