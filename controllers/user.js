@@ -2,7 +2,7 @@ const UserModel = require('../models/user.js')
 const {matchedData} = require('express-validator')
 const {encrypt} = require('../utils/handlePassword.js')
 const crypto = require('crypto')
-
+const { sendEmail } = require('../utils/handleEmail.js')
 const createItem = async (req, res) => {
     try{
         req = matchedData(req)
@@ -16,6 +16,13 @@ const createItem = async (req, res) => {
         body = {...req, password, code_validation, validado, intentos, bloqueado}
         console.log(body)
         const result = await UserModel.create(body)
+        const emailOptions = {
+            'subject': "Validación de email",
+            'text': `Vualve a la página e introduce el código para validar tu email en la aplicación ${body.code_validation}`,
+            'to': body.email,
+            'from': process.env.EMAIL
+        }
+        sendEmail(emailOptions)
         res.status(201).send(result)
         console.log("------------------------")
     } catch(err){
