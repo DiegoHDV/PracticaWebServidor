@@ -45,9 +45,17 @@ const createItem = async (req, res) => {
 }
 
 const validationEmail = async (req, res) => {
-    const body = req.body
-    console.log(body)
-    res.send(body)
+    code = matchedData(req)
+    
+    if(code.code != req.user.code_validation){
+        res.status(401).send("ERROR_CODE_VALIDATION")
+    }
+    else{
+        
+        const user = await UserModel.findByIdAndUpdate(req.user._id, {validado: true})
+        
+        res.status(200).send("Usuario validado")
+    }
 }
 
 module.exports = {createItem, validationEmail}
