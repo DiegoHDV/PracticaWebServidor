@@ -44,4 +44,10 @@ const createItem = async (req, res) => {
     }
 }
 
-module.exports = {createItem}
+const validationEmail = async (req, res) => {
+    const body = req.body
+    console.log(body)
+    res.send(body)
+}
+
+module.exports = {createItem, validationEmail}

@@ -11,3 +11,12 @@ Content-Type: application/json
     "email": "jopetis28@gmail.com",
     "password": "12345678"
 }
+
+###
+POST http://localhost:3000/practica/user/register/validation
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RhYmFiZDEwYTVkZTllNmNhMjVkM2YiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQyMzg3OTAxLCJleHAiOjE3NDIzOTUxMDF9.9VZcGwmdlqAeSfH_AS0WI3OQiIeBS760lF9034-tvzU
+Content-Type: application/json
+
+{
+    "code": 909090
+}
