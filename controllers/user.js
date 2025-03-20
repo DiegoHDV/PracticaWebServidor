@@ -1,6 +1,6 @@
 const UserModel = require('../models/user.js')
 const {matchedData} = require('express-validator')
-const {encrypt} = require('../utils/handlePassword.js')
+const {encrypt, compare} = require('../utils/handlePassword.js')
 const crypto = require('crypto')
 const { sendEmail } = require('../utils/handleEmail.js')
 const { tokenSign } = require("../utils/handleJwt.js")
@@ -64,4 +64,32 @@ const validationEmail = async (req, res) => {
     }
 }
 
-module.exports = {createItem, validationEmail}
+const login = async (req, res) => {
+    try{
+        const body = matchedData(req)
+        console.log(body)
+        const user = await UserModel.findOne({email: body.email})
+        if(user == null){
+            res.status(404).send("ERROR_USER_NOT_FOUND")
+        }
+        else{
+            const passwordMatch = await compare(body.password, user.password)
+            if(!passwordMatch){
+                const user = await UserModel.findOneAndUpdate({email: body.email})
+                res.status(402).send("ERROR_INCORRECT_DATA")
+            }
+            else{
+                const data = {
+                    token: await tokenSign(user),
+                    user: user
+                }
+                res.status(200).send(data)
+            }
+        }
+    }catch(err){
+        console.log("ERROR")
+    }
+    
+}
+
+module.exports = {createItem, validationEmail, login}

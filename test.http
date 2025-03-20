@@ -20,3 +20,13 @@ Content-Type: application/json
 {
     "code": "e4762e"
 }
+
+
+###
+POST http://localhost:3000/practica/user/login
+Content-Type: application/json
+
+{
+    "email": "jopetis28@gmail.com",
+    "password": "123456789"
+}
