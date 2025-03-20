@@ -65,29 +65,40 @@ const validationEmail = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    try{
-        const body = matchedData(req)
-        console.log(body)
-        const user = await UserModel.findOne({email: body.email})
-        if(user == null){
-            res.status(404).send("ERROR_USER_NOT_FOUND")
+    
+    const body = matchedData(req)
+    const user = await UserModel.findOne({email: body.email})
+    
+    if(user == null){
+        res.status(404).send("ERROR_USER_NOT_FOUND")
+    }
+    else{
+        if(user.intentos == 0){
+            const userBloqueado = await UserModel.findByIdAndUpdate(user._id, {bloqueado: true})
+            res.status(404).send("El usuario ha sido bloqueado por excederse en número de intentos. Si desea desbloquearlo póngase en contacto con nosotros.")
         }
         else{
-            const passwordMatch = await compare(body.password, user.password)
-            if(!passwordMatch){
-                const user = await UserModel.findOneAndUpdate({email: body.email})
-                res.status(402).send("ERROR_INCORRECT_DATA")
+            if(!user.validado){
+                res.status(403).send("Por favor, valida el email para poder acceder")
             }
             else{
-                const data = {
-                    token: await tokenSign(user),
-                    user: user
+                const passwordMatch = await compare(body.password, user.password)
+                if(!passwordMatch){
+                    const userFallido = await UserModel.findOneAndUpdate({email: body.email}, {intentos: user.intentos - 1})
+                    res.status(404).send("ERROR_INCORRECT_DATA")
                 }
-                res.status(200).send(data)
+                else{
+                    const userAcertado = await UserModel.findOneAndUpdate({email: body.email}, {intentos: 3})
+                    const data = {
+                        token: await tokenSign(userAcertado),
+                        user: userAcertado
+                    }
+                    res.status(200).send(data)
+                }
             }
+            
         }
-    }catch(err){
-        console.log("ERROR")
+        
     }
     
 }
