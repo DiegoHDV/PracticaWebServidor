@@ -6,17 +6,17 @@ POST http://localhost:3000/practica/user/register
 Content-Type: application/json
 
 {
-    "name": "ProbandoToken",
+    "name": "ProbandoIntentos",
     "age": 20,
-    "email": "jopetis28@gmail.com",
+    "email": "jopeetass@gmail.com",
     "password": "12345678"
 }
 
 ###
 POST http://localhost:3000/practica/user/register/validation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RhYmFiZDEwYTVkZTllNmNhMjVkM2YiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQyMzg3OTAxLCJleHAiOjE3NDIzOTUxMDF9.9VZcGwmdlqAeSfH_AS0WI3OQiIeBS760lF9034-tvzU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMWUwZmUzYmJhMjU3MDQ1MjYyY2IiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQyNDc4ODYzLCJleHAiOjE3NDI0ODYwNjN9.BNJC_aQmTuVb4RApD47sXG_45WuqirSOHDSIDxfkieQ
 Content-Type: application/json
 
 {
-    "code": "54217f"
+    "code": "e4762e"
 }

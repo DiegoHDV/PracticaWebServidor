@@ -23,14 +23,14 @@ const createItem = async (req, res) => {
             token: await tokenSign(result),
             user: result
         }
-        /*
+        
         const emailOptions = {
             'subject': "Validación de email",
             'text': `Vuelve a la página e introduce el código para validar tu email en la aplicación ${body.code_validation}`,
             'to': body.email,
             'from': process.env.EMAIL
         }
-        sendEmail(emailOptions)*/
+        sendEmail(emailOptions)
         res.status(201).send(data)
         console.log("------------------------")
     } catch(err){
@@ -47,14 +47,20 @@ const createItem = async (req, res) => {
 const validationEmail = async (req, res) => {
     code = matchedData(req)
     
-    if(code.code != req.user.code_validation){
-        res.status(401).send("ERROR_CODE_VALIDATION")
+    if(req.user.intentos != 0){
+        if(code.code != req.user.code_validation){
+            const user = await UserModel.findByIdAndUpdate(req.user._id, {intentos: req.user.intentos - 1})
+            res.status(401).send("ERROR_CODE_VALIDATION")
+        }
+        else{
+            const user = await UserModel.findByIdAndUpdate(req.user._id, {validado: true, intentos: 3})
+            
+            res.status(200).send(user)
+        }
     }
     else{
-        
-        const user = await UserModel.findByIdAndUpdate(req.user._id, {validado: true})
-        
-        res.status(200).send("Usuario validado")
+        const user = await UserModel.findByIdAndUpdate(req.user._id, {bloqueado: true})
+        res.status(404).send("El usuario ha sido bloqueado por excederse en número de intentos. Si desea desbloquearlo póngase en contacto con nosotros.")
     }
 }
 
