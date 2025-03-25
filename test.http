@@ -8,17 +8,17 @@ Content-Type: application/json
 {
     "name": "ProbandoIntentos",
     "age": 20,
-    "email": "jopeetass@gmail.com",
+    "email": "jopetis28@gmail.com",
     "password": "12345678"
 }
 
 ###
 POST http://localhost:3000/practica/user/register/validation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMWUwZmUzYmJhMjU3MDQ1MjYyY2IiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQyNDc4ODYzLCJleHAiOjE3NDI0ODYwNjN9.BNJC_aQmTuVb4RApD47sXG_45WuqirSOHDSIDxfkieQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMjk5MTI2MTRlZWVjYjJkZWFmMTAiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQyNDgxODA5LCJleHAiOjE3NDI0ODkwMDl9.jv_0DfwbjmAiLJWvZ4B7qEw2vXQtYXuCEzx2VRiFoj8
 Content-Type: application/json
 
 {
-    "code": "e4762e"
+    "code": "712f79"
 }
 
 
@@ -28,5 +28,5 @@ Content-Type: application/json
 
 {
     "email": "jopetis28@gmail.com",
-    "password": "123456789"
+    "password": "12345678"
 }

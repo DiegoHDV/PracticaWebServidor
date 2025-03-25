@@ -15,7 +15,8 @@ const UserScheme = new mongoose.Schema(
         code_validation: String,
         validado: Boolean,
         intentos: Number,
-        bloqueado: Boolean
+        bloqueado: Boolean,
+        url: String
     },
     {
         timestamps: true,
