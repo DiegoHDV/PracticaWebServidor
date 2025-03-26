@@ -19,7 +19,13 @@ const UserScheme = new mongoose.Schema(
         url: String,
         name2: String,
         fullname: String,
-        nif: String
+        nif: String,
+        autonomo: Boolean,
+        company: {
+            nombre: String,
+            cif: String,
+            direccion: String
+        }
     },
     {
         timestamps: true,
