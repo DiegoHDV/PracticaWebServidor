@@ -124,4 +124,13 @@ const uploadImage = async (req, res) => {
     }
 }
 
+const uploadPersonalData = async (req, res) => {
+    const personalData = matchedData(req)
+    console.log(personalData)
+    const user = {...req.user, personalData}
+    console.log(user)
+    const data = await UserModel.findOneAndReplace()
+    res.status(200).send("Información actualizada correctamente")
+}
+
 module.exports = {createItem, validationEmail, login, uploadImage}
