@@ -30,3 +30,15 @@ Content-Type: application/json
     "email": "jopetis28@gmail.com",
     "password": "12345678"
 }
+
+
+###
+POST http://localhost:3000/practica/user/67dc1e0fe3bba257045262cb/logo
+Content-Type: multipart/form-data; boundary=boundary123
+
+--boundary123
+Content-Disposition: form-data; name="image"; filename="user.jpg"
+Content-Type: image/jpeg
+
+< ./user.jpg
+--boundary123--

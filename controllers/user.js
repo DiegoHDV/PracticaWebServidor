@@ -103,4 +103,24 @@ const login = async (req, res) => {
     
 }
 
-module.exports = {createItem, validationEmail, login}
+const uploadImage = async (req, res) => {
+    try {
+        const id = req.params.id
+        console.log(id)
+        console.log(req.file)
+        const fileBuffer = req.file.buffer
+        const fileName = req.file.originalname
+        const pinataResponse = await uploadToPinata(fileBuffer, fileName)
+        const ipfsFile = pinataResponse.IpfsHash
+        const ipfs = `https://${process.env.PINATA_GATEWAY_URL}/ipfs/${ipfsFile}`
+        
+        const data = await UserModel.findByIdAndUpdate({_id: id}, {url: ipfs})
+        res.send(data)
+    } catch (err) {
+        console.log(err)
+        res.status(500).send("ERROR_UPLOAD_COMPANY_IMAGE")
+        //handleHttpError(res, "ERROR_UPLOAD_COMPANY_IMAGE")
+    }
+}
+
+module.exports = {createItem, validationEmail, login, uploadImage}
