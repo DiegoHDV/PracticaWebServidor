@@ -16,7 +16,8 @@ const createItem = async (req, res) => {
         validado = false
         intentos = process.env.NUM_INTENTOS
         bloqueado = false
-        body = {...req, password, code_validation, validado, intentos, bloqueado}
+        autonomo = true
+        body = {...req, password, code_validation, validado, intentos, bloqueado, autonomo}
         console.log(body)
         const result = await UserModel.create(body)
 
@@ -107,8 +108,6 @@ const login = async (req, res) => {
 const uploadImage = async (req, res) => {
     try {
         const id = req.params.id
-        console.log(id)
-        console.log(process.env.PINATA_GATEWAY_URL)
         const fileBuffer = req.file.buffer
         const fileName = req.file.originalname
         const pinataResponse = await uploadToPinata(fileBuffer, fileName)
@@ -125,11 +124,15 @@ const uploadImage = async (req, res) => {
 
 const uploadPersonalData = async (req, res) => {
     const personalData = matchedData(req)
-    console.log(personalData)
-    const user = {...req.user._doc, name2: personalData.name2, fullname: personalData.fullname, nif: personalData.nif}
+    
+    let user = {...req.user._doc, name2: personalData.name2, fullname: personalData.fullname, nif: personalData.nif}
+
+    if(user.autonomo){
+
+        user = {...user, company: {name: personalData.name2, cif: personalData.nif}}
+        
+    }
     console.log(user)
-    const email = req.user.email
- 
     const data = await UserModel.findOneAndReplace(req.user, user, {returnDocument: 'after'})
     res.status(200).send(data)
 }
@@ -137,8 +140,8 @@ const uploadPersonalData = async (req, res) => {
 const uploadCompanyData = async (req, res) => {
     const company = matchedData(req)
     const user = {...req.user._doc, company, autonomo: false}
-    console.log(user)
-    res.status(200).send(user)
+    const data = await UserModel.findOneAndReplace(req.user, user, {returnDocument: 'after'})
+    res.status(200).send(data)
 }
 
 module.exports = {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData}

@@ -6,19 +6,19 @@ POST http://localhost:3000/practica/user/register
 Content-Type: application/json
 
 {
-    "name": "ProbandoIntentos",
+    "name": "ProbandoAutonomo",
     "age": 20,
-    "email": "jopetis28@gmail.com",
+    "email": "jopeetass@gmail.com",
     "password": "12345678"
 }
 
 ###
 POST http://localhost:3000/practica/user/register/validation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMjk5MTI2MTRlZWVjYjJkZWFmMTAiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQyNDgxODA5LCJleHAiOjE3NDI0ODkwMDl9.jv_0DfwbjmAiLJWvZ4B7qEw2vXQtYXuCEzx2VRiFoj8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U0MTIzMDViNmJlYWE3OTZhMDEzZWQiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDAwMTEyLCJleHAiOjE3NDMwMDczMTJ9.3YR3NdtTryIuYmls5e8G1wJnSHdtnXgtL67NCWJO7Ws
 Content-Type: application/json
 
 {
-    "code": "712f79"
+    "code": "893b21"
 }
 
 
@@ -27,20 +27,20 @@ POST http://localhost:3000/practica/user/login
 Content-Type: application/json
 
 {
-    "email": "jopetis28@gmail.com",
+    "email": "jopeetass@gmail.com",
     "password": "12345678"
 }
 
 
 ###
 PUT http://localhost:3000/practica/user/personalData
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMjk5MTI2MTRlZWVjYjJkZWFmMTAiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQyOTk3MTc3LCJleHAiOjE3NDMwMDQzNzd9._c0BaPtkkdBVkVOf1xOz8ImJHZlciwHVdCro7gRiskw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U0MTIzMDViNmJlYWE3OTZhMDEzZWQiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDAwNDYyLCJleHAiOjE3NDMwMDc2NjJ9.BCkGKXJTrxeE_ap_w8QHSqM9XrLawGYE6AVYTkqp9Hc
 Content-Type: application/json
 
 {
-    "name2": "Diego",
-    "fullname": "H",
-    "nif": "12345678A"
+    "name2": "Diego22",
+    "fullname": "Her",
+    "nif": "12341234B"
 }
 
 
