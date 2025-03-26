@@ -134,4 +134,11 @@ const uploadPersonalData = async (req, res) => {
     res.status(200).send(data)
 }
 
-module.exports = {createItem, validationEmail, login, uploadImage, uploadPersonalData}
+const uploadCompanyData = async (req, res) => {
+    const company = matchedData(req)
+    const user = {...req.user._doc, company, autonomo: false}
+    console.log(user)
+    res.status(200).send(user)
+}
+
+module.exports = {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData}

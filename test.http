@@ -45,6 +45,18 @@ Content-Type: application/json
 
 
 ###
+PUT http://localhost:3000/practica/user/company
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMjk5MTI2MTRlZWVjYjJkZWFmMTAiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQyOTk3MTc3LCJleHAiOjE3NDMwMDQzNzd9._c0BaPtkkdBVkVOf1xOz8ImJHZlciwHVdCro7gRiskw
+Content-Type: application/json
+
+{
+    "name": "U-Tad",
+    "cif": "12349078B",
+    "address": "Rozas"
+}
+
+
+###
 PATCH http://localhost:3000/practica/user/67da7dd9dcce5029643ce00f/logo
 Content-Type: multipart/form-data; boundary=boundary123
 
