@@ -36,4 +36,13 @@ const validatorPersonalData = [
     }
 ]
 
-module.exports = {validatorCreateItem, validatorCode, validatorLogin, validatorPersonalData}
+const validatorCompany = [
+    check("name").exists().notEmpty(),
+    check("cif").exists().notEmpty().isLength({min:9, max:9}),
+    check("address").exists().notEmpty(),
+    (req, res, next) => {
+        return validateResults(req, res, next)
+    }
+]
+
+module.exports = {validatorCreateItem, validatorCode, validatorLogin, validatorPersonalData, validatorCompany}

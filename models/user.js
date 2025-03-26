@@ -22,9 +22,9 @@ const UserScheme = new mongoose.Schema(
         nif: String,
         autonomo: Boolean,
         company: {
-            nombre: String,
+            name: String,
             cif: String,
-            direccion: String
+            address: String
         }
     },
     {
