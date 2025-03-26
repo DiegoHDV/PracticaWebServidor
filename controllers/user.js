@@ -120,17 +120,18 @@ const uploadImage = async (req, res) => {
     } catch (err) {
         console.log(err)
         res.status(500).send("ERROR_UPLOAD_COMPANY_IMAGE")
-        //handleHttpError(res, "ERROR_UPLOAD_COMPANY_IMAGE")
     }
 }
 
 const uploadPersonalData = async (req, res) => {
     const personalData = matchedData(req)
     console.log(personalData)
-    const user = {...req.user, personalData}
+    const user = {...req.user._doc, name2: personalData.name2, fullname: personalData.fullname, nif: personalData.nif}
     console.log(user)
-    const data = await UserModel.findOneAndReplace()
-    res.status(200).send("Información actualizada correctamente")
+    const email = req.user.email
+ 
+    const data = await UserModel.findOneAndReplace(req.user, user, {returnDocument: 'after'})
+    res.status(200).send(data)
 }
 
-module.exports = {createItem, validationEmail, login, uploadImage}
+module.exports = {createItem, validationEmail, login, uploadImage, uploadPersonalData}

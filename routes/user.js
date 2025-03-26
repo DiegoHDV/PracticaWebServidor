@@ -1,8 +1,8 @@
 const express = require('express')
 const userRouter = express.Router()
 const app = express()
-const {createItem, validationEmail, login, uploadImage} = require('../controllers/user.js')
-const {validatorCreateItem, validatorCode, validatorLogin} = require('../validators/user.js')
+const {createItem, validationEmail, login, uploadImage, uploadPersonalData} = require('../controllers/user.js')
+const {validatorCreateItem, validatorCode, validatorLogin, validatorPersonalData} = require('../validators/user.js')
 const {authMiddleware} = require('../middleware/sessionJwt.js')
 const { uploadMiddlewareMemory } = require('../utils/handleMemmory.js')
 
@@ -17,6 +17,8 @@ userRouter.post('/register', validatorCreateItem, createItem)
 userRouter.post('/register/validation', authMiddleware, validatorCode, validationEmail)
 
 userRouter.post('/login', validatorLogin, login)
+
+userRouter.put('/personalData', authMiddleware, validatorPersonalData, uploadPersonalData)
 
 userRouter.patch('/:id/logo', uploadMiddlewareMemory.single("image"), uploadImage)
 

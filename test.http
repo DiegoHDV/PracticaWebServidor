@@ -33,7 +33,19 @@ Content-Type: application/json
 
 
 ###
-PATCH http://localhost:3000/practica/user/67dc29912614eeecb2deaf10/logo
+PUT http://localhost:3000/practica/user/personalData
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMjk5MTI2MTRlZWVjYjJkZWFmMTAiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQyOTk3MTc3LCJleHAiOjE3NDMwMDQzNzd9._c0BaPtkkdBVkVOf1xOz8ImJHZlciwHVdCro7gRiskw
+Content-Type: application/json
+
+{
+    "name2": "Diego",
+    "fullname": "H",
+    "nif": "12345678A"
+}
+
+
+###
+PATCH http://localhost:3000/practica/user/67da7dd9dcce5029643ce00f/logo
 Content-Type: multipart/form-data; boundary=boundary123
 
 --boundary123

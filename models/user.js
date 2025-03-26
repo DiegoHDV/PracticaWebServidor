@@ -17,6 +17,7 @@ const UserScheme = new mongoose.Schema(
         intentos: Number,
         bloqueado: Boolean,
         url: String,
+        name2: String,
         fullname: String,
         nif: String
     },
