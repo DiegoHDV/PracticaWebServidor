@@ -4,6 +4,7 @@ const {encrypt, compare} = require('../utils/handlePassword.js')
 const crypto = require('crypto')
 const { sendEmail } = require('../utils/handleEmail.js')
 const { tokenSign } = require("../utils/handleJwt.js")
+const {uploadToPinata} = require("../utils/handleUploadIPFS.js")
 
 const createItem = async (req, res) => {
     try{
@@ -107,7 +108,7 @@ const uploadImage = async (req, res) => {
     try {
         const id = req.params.id
         console.log(id)
-        console.log(req.file)
+        console.log(process.env.PINATA_GATEWAY_URL)
         const fileBuffer = req.file.buffer
         const fileName = req.file.originalname
         const pinataResponse = await uploadToPinata(fileBuffer, fileName)
