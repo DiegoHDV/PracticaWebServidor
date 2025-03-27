@@ -52,4 +52,18 @@ const validatorDeleteUser = [
     }
 ]
 
-module.exports = {validatorCreateItem, validatorCode, validatorLogin, validatorPersonalData, validatorCompany, validatorDeleteUser}
+const validatorVerificationCode = [
+    check("email").exists().notEmpty().isEmail(),
+    check("code_verification").exists().notEmpty().isLength({min:6, max:6}),
+    (req, res, next) => {
+        return validateResults(req, res, next)
+    }
+]
+
+module.exports = {validatorCreateItem, 
+    validatorCode, 
+    validatorLogin, 
+    validatorPersonalData, 
+    validatorCompany, 
+    validatorDeleteUser, 
+    validatorVerificationCode}

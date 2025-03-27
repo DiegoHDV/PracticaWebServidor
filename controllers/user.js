@@ -18,7 +18,8 @@ const createItem = async (req, res) => {
         bloqueado = false
         autonomo = true
         deleted = false
-        body = {...req, password, code_validation, validado, intentos, bloqueado, autonomo, deleted}
+        verificate = false
+        body = {...req, password, code_validation, validado, intentos, bloqueado, autonomo, deleted, verificate}
         console.log(body)
         const result = await UserModel.create(body)
 
@@ -180,6 +181,35 @@ const verificationCode = async (req, res) => {
     res.status(200).send(data)
 }
 
+const verifyVerificationCode = async (req, res) => {
+    const body = matchedData(req)
+
+    const user = await UserModel.findOne({email: body.email})
+    if(user == null){
+        res.status(404).send("ERROR_USER_NOT_FOUND")
+    }
+    else{
+        console.log(req.user)
+        if(user.email !== req.user.email){
+            res.status(401).send("ERROR_NO_MATCHING_EMAILS")
+        }
+        else{
+            if(user.code_verification !== body.code_verification){
+                res.status(401).send("ERROR_INVALID_VERIFICATION_CODE")
+            }
+            else{
+                const userVerificado = await UserModel.findByIdAndUpdate(user._id, {verificate: true}, {returnDocument: 'after'})
+                const data = {
+                    token: await tokenSign(userVerificado),
+                    user: userVerificado
+                }
+                res.status(200).send(data) 
+            }
+            
+        }
+    }
+}
+
 module.exports = {createItem, 
     validationEmail, 
     login, 
@@ -188,4 +218,5 @@ module.exports = {createItem,
     uploadCompanyData, 
     getUser, 
     deleteUser, 
-    verificationCode}
+    verificationCode,
+    verifyVerificationCode}

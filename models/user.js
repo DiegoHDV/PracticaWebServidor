@@ -28,7 +28,7 @@ const UserScheme = new mongoose.Schema(
         },
         deleted: Boolean,
         code_verification: String,
-        verification: Boolean
+        verificate: Boolean
     },
     {
         timestamps: true,
