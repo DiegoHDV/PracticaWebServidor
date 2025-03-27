@@ -45,4 +45,11 @@ const validatorCompany = [
     }
 ]
 
-module.exports = {validatorCreateItem, validatorCode, validatorLogin, validatorPersonalData, validatorCompany}
+const validatorDeleteUser = [
+    check("soft").exists().notEmpty(),
+    (req, res, next) => {
+        return validateResults(req, res, next)
+    }
+]
+
+module.exports = {validatorCreateItem, validatorCode, validatorLogin, validatorPersonalData, validatorCompany, validatorDeleteUser}

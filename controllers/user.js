@@ -146,7 +146,7 @@ const uploadCompanyData = async (req, res) => {
 
 const getUser = async (req, res) => {
     const user = req.user
-    res.status(202).send(user)
+    res.status(200).send(user)
 }
 
-module.exports = {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData}
+module.exports = {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData, getUser}
