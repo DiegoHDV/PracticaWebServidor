@@ -67,3 +67,15 @@ Content-Type: image/jpeg
 
 < ./user.jpg
 --boundary123--
+
+
+
+###
+GET http://localhost:3000/practica/user/getUser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U0MTIzMDViNmJlYWE3OTZhMDEzZWQiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDcwNzUxLCJleHAiOjE3NDMwNzc5NTF9.wYIKyJx0q9qbDvWmhVGzfPGuBusRRPCysDW18mOajIw
+
+
+
+###
+DELETE http://localhost:3000/practica/user/deleteUser?soft=true
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U0MTIzMDViNmJlYWE3OTZhMDEzZWQiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDcwNzUxLCJleHAiOjE3NDMwNzc5NTF9.wYIKyJx0q9qbDvWmhVGzfPGuBusRRPCysDW18mOajIw

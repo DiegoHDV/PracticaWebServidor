@@ -26,7 +26,7 @@ const UserScheme = new mongoose.Schema(
             cif: String,
             address: String
         },
-        delete: Boolean
+        deleted: Boolean
     },
     {
         timestamps: true,

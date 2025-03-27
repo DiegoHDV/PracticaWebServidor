@@ -46,7 +46,7 @@ const validatorCompany = [
 ]
 
 const validatorDeleteUser = [
-    check("soft").exists().notEmpty(),
+    check("soft").exists().notEmpty().toBoolean(),
     (req, res, next) => {
         return validateResults(req, res, next)
     }

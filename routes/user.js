@@ -24,8 +24,8 @@ userRouter.put('/company', authMiddleware, validatorCompany, uploadCompanyData)
 
 userRouter.patch('/logo', authMiddleware, uploadMiddlewareMemory.single("image"), uploadImage)
 
-userRouter.get('/get', authMiddleware, getUser)
+userRouter.get('/getUser', authMiddleware, getUser)
 
-userRouter.delete('/delete', authMiddleware, validatorDeleteUser, deleteUser)
+userRouter.delete('/deleteUser', authMiddleware, validatorDeleteUser, deleteUser)
 
 module.exports = userRouter

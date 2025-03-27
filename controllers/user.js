@@ -17,7 +17,8 @@ const createItem = async (req, res) => {
         intentos = process.env.NUM_INTENTOS
         bloqueado = false
         autonomo = true
-        body = {...req, password, code_validation, validado, intentos, bloqueado, autonomo}
+        deleted = false
+        body = {...req, password, code_validation, validado, intentos, bloqueado, autonomo, deleted}
         console.log(body)
         const result = await UserModel.create(body)
 
@@ -150,7 +151,17 @@ const getUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-    res.status(200).send("Correcto")
+    const soft = matchedData(req).soft
+    const user = req.user
+    if(soft){
+        const data = await UserModel.findByIdAndUpdate(user._id, {deleted: true})
+        res.status(200).send(data)
+    }
+    else{
+        const data = await UserModel.findByIdAndDelete(user._id)
+        res.status(200).send("Usuario borrado correctamente")
+    }
+    
 }
 
 module.exports = {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData, getUser, deleteUser}
