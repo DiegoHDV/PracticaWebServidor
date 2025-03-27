@@ -149,4 +149,8 @@ const getUser = async (req, res) => {
     res.status(200).send(user)
 }
 
-module.exports = {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData, getUser}
+const deleteUser = async (req, res) => {
+    res.status(200).send("Correcto")
+}
+
+module.exports = {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData, getUser, deleteUser}
