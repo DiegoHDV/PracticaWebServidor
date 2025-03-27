@@ -57,7 +57,8 @@ Content-Type: application/json
 
 
 ###
-PATCH http://localhost:3000/practica/user/67da7dd9dcce5029643ce00f/logo
+PATCH http://localhost:3000/practica/user/logo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U0MTIzMDViNmJlYWE3OTZhMDEzZWQiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDcwNzUxLCJleHAiOjE3NDMwNzc5NTF9.wYIKyJx0q9qbDvWmhVGzfPGuBusRRPCysDW18mOajIw
 Content-Type: multipart/form-data; boundary=boundary123
 
 --boundary123

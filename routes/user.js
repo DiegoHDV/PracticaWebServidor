@@ -22,6 +22,6 @@ userRouter.put('/personalData', authMiddleware, validatorPersonalData, uploadPer
 
 userRouter.put('/company', authMiddleware, validatorCompany, uploadCompanyData)
 
-userRouter.patch('/:id/logo', uploadMiddlewareMemory.single("image"), uploadImage)
+userRouter.patch('/logo', authMiddleware, uploadMiddlewareMemory.single("image"), uploadImage)
 
 module.exports = userRouter

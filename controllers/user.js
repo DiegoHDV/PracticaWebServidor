@@ -107,7 +107,8 @@ const login = async (req, res) => {
 
 const uploadImage = async (req, res) => {
     try {
-        const id = req.params.id
+        const id = req.user._id
+        console.log(id)
         const fileBuffer = req.file.buffer
         const fileName = req.file.originalname
         const pinataResponse = await uploadToPinata(fileBuffer, fileName)
