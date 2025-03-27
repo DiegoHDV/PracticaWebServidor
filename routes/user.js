@@ -1,10 +1,11 @@
 const express = require('express')
 const userRouter = express.Router()
 const app = express()
-const {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData, getUser, deleteUser, verificationCode, verifyVerificationCode} = require('../controllers/user.js')
-const {validatorCreateItem, validatorCode, validatorLogin, validatorPersonalData, validatorCompany, validatorDeleteUser, validatorVerificationCode} = require('../validators/user.js')
+const {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData, getUser, deleteUser, verificationCode, verifyVerificationCode, updatePassword} = require('../controllers/user.js')
+const {validatorCreateItem, validatorCode, validatorLogin, validatorPersonalData, validatorCompany, validatorDeleteUser, validatorVerificationCode, validatorNewPassword} = require('../validators/user.js')
 const {authMiddleware} = require('../middleware/sessionJwt.js')
 const { uploadMiddlewareMemory } = require('../utils/handleMemmory.js')
+const user = require('../models/user.js')
 
 app.use('/practica/user', userRouter)
 
@@ -31,5 +32,7 @@ userRouter.delete('/deleteUser', authMiddleware, validatorDeleteUser, deleteUser
 userRouter.get('/recuperarPassword/verificationCode', authMiddleware, verificationCode)
 
 userRouter.post('/recuperarPassword/verificationCode', authMiddleware, validatorVerificationCode, verifyVerificationCode)
+
+userRouter.post('/recuperarPassword/changePassword', authMiddleware, validatorNewPassword, updatePassword)
 
 module.exports = userRouter

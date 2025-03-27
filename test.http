@@ -6,7 +6,7 @@ POST http://localhost:3000/practica/user/register
 Content-Type: application/json
 
 {
-    "name": "ProbandoAutonomo",
+    "name": "Probando",
     "age": 20,
     "email": "jopeetass@gmail.com",
     "password": "12345678"
@@ -14,11 +14,11 @@ Content-Type: application/json
 
 ###
 POST http://localhost:3000/practica/user/register/validation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U0MTIzMDViNmJlYWE3OTZhMDEzZWQiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDAwMTEyLCJleHAiOjE3NDMwMDczMTJ9.3YR3NdtTryIuYmls5e8G1wJnSHdtnXgtL67NCWJO7Ws
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U1NWViMzgwNTU1YWM1ZGFiNDA0NzEiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDg1MjM1LCJleHAiOjE3NDMwOTI0MzV9.6D3DhDtdgWC1HfSzyrDIYT6FJpOx9E6LwHs3hwcYoWc
 Content-Type: application/json
 
 {
-    "code": "893b21"
+    "code": "32ea77"
 }
 
 
@@ -100,3 +100,12 @@ Content-Type: application/json
 
 
 
+
+###
+POST http://localhost:3000/practica/user/recuperarPassword/changePassword
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMjk5MTI2MTRlZWVjYjJkZWFmMTAiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDg1NDQ1LCJleHAiOjE3NDMwOTI2NDV9.6OAXHnmBfhZyHSNHkFVERZp5CFIYHIgCgFRXc_y8o8Q
+Content-Type: application/json
+
+{
+    "password": "12345678"
+}

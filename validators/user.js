@@ -60,10 +60,18 @@ const validatorVerificationCode = [
     }
 ]
 
+const validatorNewPassword = [
+    check("password").exists().notEmpty().isLength( {min:8, max: 16} ),
+    (req, res, next) => {
+        return validateResults(req, res, next)
+    }
+]
+
 module.exports = {validatorCreateItem, 
     validatorCode, 
     validatorLogin, 
     validatorPersonalData, 
     validatorCompany, 
     validatorDeleteUser, 
-    validatorVerificationCode}
+    validatorVerificationCode,
+    validatorNewPassword}
