@@ -108,7 +108,6 @@ const login = async (req, res) => {
 const uploadImage = async (req, res) => {
     try {
         const id = req.user._id
-        console.log(id)
         const fileBuffer = req.file.buffer
         const fileName = req.file.originalname
         const pinataResponse = await uploadToPinata(fileBuffer, fileName)
@@ -143,6 +142,11 @@ const uploadCompanyData = async (req, res) => {
     const user = {...req.user._doc, company, autonomo: false}
     const data = await UserModel.findOneAndReplace(req.user, user, {returnDocument: 'after'})
     res.status(200).send(data)
+}
+
+const getUser = async (req, res) => {
+    const user = req.user
+    res.status(202).send(user)
 }
 
 module.exports = {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData}
