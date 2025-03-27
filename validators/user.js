@@ -67,6 +67,14 @@ const validatorNewPassword = [
     }
 ]
 
+const validatorInvitePartners = [
+    check("partners").exists().notEmpty().isArray(),
+    check("partners.*").exists().notEmpty().isEmail(),
+    (req, res, next) => {
+        return validateResults(req, res, next)
+    }
+]
+
 module.exports = {validatorCreateItem, 
     validatorCode, 
     validatorLogin, 
@@ -74,4 +82,5 @@ module.exports = {validatorCreateItem,
     validatorCompany, 
     validatorDeleteUser, 
     validatorVerificationCode,
-    validatorNewPassword}
+    validatorNewPassword,
+    validatorInvitePartners}
