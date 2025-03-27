@@ -164,4 +164,28 @@ const deleteUser = async (req, res) => {
     
 }
 
-module.exports = {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData, getUser, deleteUser}
+const verificationCode = async (req, res) => {
+    const code_verification = crypto.randomBytes(3).toString('hex')
+    const user = req.user
+    const data = await UserModel.findOneAndUpdate(user._id, {code_verification: code_verification})
+    
+    const emailOptions = {
+        'subject': "Recuperar contraseña",
+        'text': `Vuelve a la página e introduce el código para poder recuperar la contraseña: ${code_verification}`,
+        'to': user.email,
+        'from': process.env.EMAIL
+    }
+    sendEmail(emailOptions)
+    
+    res.status(200).send(data)
+}
+
+module.exports = {createItem, 
+    validationEmail, 
+    login, 
+    uploadImage, 
+    uploadPersonalData, 
+    uploadCompanyData, 
+    getUser, 
+    deleteUser, 
+    verificationCode}

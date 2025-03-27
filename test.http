@@ -27,7 +27,7 @@ POST http://localhost:3000/practica/user/login
 Content-Type: application/json
 
 {
-    "email": "jopeetass@gmail.com",
+    "email": "jopetis28@gmail.com",
     "password": "12345678"
 }
 
@@ -77,5 +77,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U0MTIzM
 
 
 ###
-DELETE http://localhost:3000/practica/user/deleteUser?soft=true
+DELETE http://localhost:3000/practica/user/deleteUser?soft=false
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U0MTIzMDViNmJlYWE3OTZhMDEzZWQiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDcwNzUxLCJleHAiOjE3NDMwNzc5NTF9.wYIKyJx0q9qbDvWmhVGzfPGuBusRRPCysDW18mOajIw
+
+
+
+###
+GET http://localhost:3000/practica/user/recuperarPassword/verificationCode
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMjk5MTI2MTRlZWVjYjJkZWFmMTAiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDc1NTMzLCJleHAiOjE3NDMwODI3MzN9.qlBSulG2Evf3jrvyPrVsxHhnfk5aImRA8Ec-tBh4z8c
