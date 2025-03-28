@@ -1,8 +1,8 @@
 const express = require('express')
 const userRouter = express.Router()
 const app = express()
-const {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData, getUser, deleteUser, verificationCode, verifyVerificationCode, updatePassword} = require('../controllers/user.js')
-const {validatorCreateItem, validatorCode, validatorLogin, validatorPersonalData, validatorCompany, validatorDeleteUser, validatorVerificationCode, validatorNewPassword} = require('../validators/user.js')
+const {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData, getUser, deleteUser, verificationCode, verifyVerificationCode, updatePassword, invitePartners} = require('../controllers/user.js')
+const {validatorCreateItem, validatorCode, validatorLogin, validatorPersonalData, validatorCompany, validatorDeleteUser, validatorVerificationCode, validatorNewPassword, validatorInvitePartners} = require('../validators/user.js')
 const {authMiddleware} = require('../middleware/sessionJwt.js')
 const { uploadMiddlewareMemory } = require('../utils/handleMemmory.js')
 const user = require('../models/user.js')
@@ -34,5 +34,7 @@ userRouter.get('/recuperarPassword/verificationCode', authMiddleware, verificati
 userRouter.post('/recuperarPassword/verificationCode', authMiddleware, validatorVerificationCode, verifyVerificationCode)
 
 userRouter.post('/recuperarPassword/changePassword', authMiddleware, validatorNewPassword, updatePassword)
+
+userRouter.post('/invitarGente', authMiddleware, validatorInvitePartners, invitePartners)
 
 module.exports = userRouter

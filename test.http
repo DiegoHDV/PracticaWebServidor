@@ -109,3 +109,15 @@ Content-Type: application/json
 {
     "password": "12345678"
 }
+
+
+
+
+###
+POST http://localhost:3000/practica/user/invitarGente
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMjk5MTI2MTRlZWVjYjJkZWFmMTAiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMTUwMzQ4LCJleHAiOjE3NDMxNTc1NDh9.QC7XLCGIk-upDwZnfIE54lVOx01CIjirLq5uaknMSvs
+Content-Type: application/json
+
+{
+    "partners": ["jopeetass@gmail.com", "email3@gmail.com", "jopetis28@gmail.com"]
+}

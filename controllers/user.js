@@ -223,6 +223,39 @@ const updatePassword = async (req, res) => {
     }
 }
 
+const invitePartners = async (req, res) => {
+    const partners = matchedData(req).partners
+    console.log(partners)
+    const company = req.user.company
+    const invitados = []
+    for(email of partners){
+        const invitado = await UserModel.findOne({email: email})
+        if(invitado === null){
+            const user = {
+                name: "invitado",
+                age: 0,
+                email: email,
+                password: await encrypt("12345678"),
+                role: ['guest'],
+                code_validation: crypto.randomBytes(3).toString('hex'),
+                validado: false,
+                intentos: process.env.NUM_INTENTOS,
+                bloqueado: false,
+                autonomo: true,
+                company: company,
+                deleted: false,
+                verificate: false
+            }
+            const data = await UserModel.create(user)
+            invitados.push(data)
+        }
+        else{
+            invitados.push(`ACCOUNT_ALREADY_EXISTS: ${email}`)
+        }
+    }
+    res.status(200).send(invitados)
+}
+
 module.exports = {
     createItem,
     validationEmail,
@@ -234,5 +267,6 @@ module.exports = {
     deleteUser,
     verificationCode,
     verifyVerificationCode,
-    updatePassword
+    updatePassword,
+    invitePartners
 }

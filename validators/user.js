@@ -68,7 +68,7 @@ const validatorNewPassword = [
 ]
 
 const validatorInvitePartners = [
-    check("partners").exists().notEmpty().isArray(),
+    check("partners").exists().notEmpty().isArray({min: 1}),
     check("partners.*").exists().notEmpty().isEmail(),
     (req, res, next) => {
         return validateResults(req, res, next)
