@@ -14,7 +14,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:3000/practica/user/register/validation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U1NWViMzgwNTU1YWM1ZGFiNDA0NzEiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDg1MjM1LCJleHAiOjE3NDMwOTI0MzV9.6D3DhDtdgWC1HfSzyrDIYT6FJpOx9E6LwHs3hwcYoWc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMjk5MTI2MTRlZWVjYjJkZWFmMTAiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzNDM5NzY4LCJleHAiOjE3NDM0NDY5Njh9.yfyfQjtIBSGENEG3HmPOCG2rEF5pVL_TqFwshwp1MT4
 Content-Type: application/json
 
 {

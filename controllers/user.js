@@ -50,22 +50,27 @@ const createItem = async (req, res) => {
 
 const validationEmail = async (req, res) => {
     code = matchedData(req)
+    if(!req.user.validado){
+        if (req.user.intentos != 0) {
+            if (code.code != req.user.code_validation) {
+                const user = await UserModel.findByIdAndUpdate(req.user._id, { intentos: req.user.intentos - 1 })
+                res.status(401).send("ERROR_CODE_VALIDATION")
+            }
+            else {
+                const user = await UserModel.findByIdAndUpdate(req.user._id, { validado: true, intentos: 3 })
 
-    if (req.user.intentos != 0) {
-        if (code.code != req.user.code_validation) {
-            const user = await UserModel.findByIdAndUpdate(req.user._id, { intentos: req.user.intentos - 1 })
-            res.status(401).send("ERROR_CODE_VALIDATION")
+                res.status(200).send(user)
+            }
         }
         else {
-            const user = await UserModel.findByIdAndUpdate(req.user._id, { validado: true, intentos: 3 })
-
-            res.status(200).send(user)
+            const user = await UserModel.findByIdAndUpdate(req.user._id, { bloqueado: true })
+            res.status(404).send("El usuario ha sido bloqueado por excederse en número de intentos. Si desea desbloquearlo póngase en contacto con nosotros.")
         }
     }
-    else {
-        const user = await UserModel.findByIdAndUpdate(req.user._id, { bloqueado: true })
-        res.status(404).send("El usuario ha sido bloqueado por excederse en número de intentos. Si desea desbloquearlo póngase en contacto con nosotros.")
+    else{
+        res.status(401).send("ERROR_USER_ALREADY_VALIDATED")
     }
+    
 }
 
 const login = async (req, res) => {
