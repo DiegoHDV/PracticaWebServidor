@@ -113,152 +113,204 @@ const login = async (req, res) => {
 }
 
 const uploadImage = async (req, res) => {
-    try {
-        const id = req.user._id
-        const fileBuffer = req.file.buffer
-        const fileName = req.file.originalname
-        const pinataResponse = await uploadToPinata(fileBuffer, fileName)
-        const ipfsFile = pinataResponse.IpfsHash
-        const ipfs = `https://${process.env.PINATA_GATEWAY_URL}/ipfs/${ipfsFile}`
-
-        const data = await UserModel.findByIdAndUpdate({ _id: id }, { url: ipfs })
-        res.send(data)
-    } catch (err) {
-        console.log(err)
-        res.status(500).send("ERROR_UPLOAD_COMPANY_IMAGE")
+    if(res.user.deleted){
+        res.status(404).send("ERROR_USER_NOT_FOUND")
     }
+    else{
+        try {
+            const id = req.user._id
+            const fileBuffer = req.file.buffer
+            const fileName = req.file.originalname
+            const pinataResponse = await uploadToPinata(fileBuffer, fileName)
+            const ipfsFile = pinataResponse.IpfsHash
+            const ipfs = `https://${process.env.PINATA_GATEWAY_URL}/ipfs/${ipfsFile}`
+
+            const data = await UserModel.findByIdAndUpdate({ _id: id }, { url: ipfs })
+            res.send(data)
+        } catch (err) {
+            console.log(err)
+            res.status(500).send("ERROR_UPLOAD_COMPANY_IMAGE")
+        }
+    }
+    
 }
 
 const uploadPersonalData = async (req, res) => {
     const personalData = matchedData(req)
-
-    let user = { ...req.user._doc, name2: personalData.name2, fullname: personalData.fullname, nif: personalData.nif }
-
-    if (user.autonomo) {
-
-        user = { ...user, company: { name: personalData.name2, cif: personalData.nif } }
-
+    if(res.user.deleted){
+        res.status(404).send("ERROR_USER_NOT_FOUND")
     }
-    console.log(user)
-    const data = await UserModel.findOneAndReplace(req.user, user, { returnDocument: 'after' })
-    res.status(200).send(data)
+    else{
+         let user = { ...req.user._doc, name2: personalData.name2, fullname: personalData.fullname, nif: personalData.nif }
+
+        if (user.autonomo) {
+
+            user = { ...user, company: { name: personalData.name2, cif: personalData.nif } }
+
+        }
+        console.log(user)
+        const data = await UserModel.findOneAndReplace(req.user, user, { returnDocument: 'after' })
+        res.status(200).send(data)
+    }
+   
 }
 
 const uploadCompanyData = async (req, res) => {
     const company = matchedData(req)
-    const user = { ...req.user._doc, company, autonomo: false }
-    const data = await UserModel.findOneAndReplace(req.user, user, { returnDocument: 'after' })
-    res.status(200).send(data)
+    if(res.user.deleted){
+        res.status(404).send("ERROR_USER_NOT_FOUND")
+    }
+    else{
+        const user = { ...req.user._doc, company, autonomo: false }
+        const data = await UserModel.findOneAndReplace(req.user, user, { returnDocument: 'after' })
+        res.status(200).send(data)
+    }
+    
 }
 
 const getUser = async (req, res) => {
-    const user = req.user
-    res.status(200).send(user)
+    if(res.user.deleted){
+        res.status(404).send("ERROR_USER_NOT_FOUND")
+    }
+    else{
+        const user = req.user
+        res.status(200).send(user)
+    }
+    
 }
 
 const deleteUser = async (req, res) => {
     const soft = matchedData(req).soft
-    const user = req.user
-    if (soft) {
-        const data = await UserModel.findByIdAndUpdate(user._id, { deleted: true })
-        res.status(200).send(data)
+    if(res.user.deleted){
+        res.status(404).send("ERROR_USER_NOT_FOUND")
     }
-    else {
-        const data = await UserModel.findByIdAndDelete(user._id)
-        res.status(200).send("Usuario borrado correctamente")
+    else{
+        const user = req.user
+        if (soft) {
+            const data = await UserModel.findByIdAndUpdate(user._id, { deleted: true })
+            res.status(200).send(data)
+        }
+        else {
+            const data = await UserModel.findByIdAndDelete(user._id)
+            res.status(200).send("Usuario borrado correctamente")
+        }
     }
+    
 
 }
 
 const verificationCode = async (req, res) => {
-    const code_verification = crypto.randomBytes(3).toString('hex')
-    const user = req.user
-    const data = await UserModel.findOneAndUpdate(user._id, { code_verification: code_verification })
-
-    const emailOptions = {
-        'subject': "Recuperar contraseña",
-        'text': `Vuelve a la página e introduce el código para poder recuperar la contraseña: ${code_verification}`,
-        'to': user.email,
-        'from': process.env.EMAIL
+    if(res.user.deleted){
+        res.status(404).send("ERROR_USER_NOT_FOUND")
     }
-    sendEmail(emailOptions)
+    else{
+        const code_verification = crypto.randomBytes(3).toString('hex')
+        const user = req.user
+        const data = await UserModel.findOneAndUpdate(user._id, { code_verification: code_verification })
 
-    res.status(200).send(data)
+        const emailOptions = {
+            'subject': "Recuperar contraseña",
+            'text': `Vuelve a la página e introduce el código para poder recuperar la contraseña: ${code_verification}`,
+            'to': user.email,
+            'from': process.env.EMAIL
+        }
+        sendEmail(emailOptions)
+
+        res.status(200).send(data)
+    }
+    
 }
 
 const verifyVerificationCode = async (req, res) => {
     const body = matchedData(req)
-
-    const user = await UserModel.findOne({ email: body.email })
-    if (user == null) {
+    if(res.user.deleted){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
-    else {
-        console.log(req.user)
-        if (user.email !== req.user.email) {
-            res.status(401).send("ERROR_NO_MATCHING_EMAILS")
+    else{
+        const user = await UserModel.findOne({ email: body.email })
+        if (user == null) {
+            res.status(404).send("ERROR_USER_NOT_FOUND")
         }
         else {
-            if (user.code_verification !== body.code_verification) {
-                res.status(401).send("ERROR_INVALID_VERIFICATION_CODE")
+            console.log(req.user)
+            if (user.email !== req.user.email) {
+                res.status(401).send("ERROR_NO_MATCHING_EMAILS")
             }
             else {
-                const userVerificado = await UserModel.findByIdAndUpdate(user._id, { verificate: true }, { returnDocument: 'after' })
-                const data = {
-                    token: await tokenSign(userVerificado),
-                    user: userVerificado
+                if (user.code_verification !== body.code_verification) {
+                    res.status(401).send("ERROR_INVALID_VERIFICATION_CODE")
                 }
-                res.status(200).send(data)
-            }
+                else {
+                    const userVerificado = await UserModel.findByIdAndUpdate(user._id, { verificate: true }, { returnDocument: 'after' })
+                    const data = {
+                        token: await tokenSign(userVerificado),
+                        user: userVerificado
+                    }
+                    res.status(200).send(data)
+                }
 
+            }
         }
     }
+    
 }
 
 const updatePassword = async (req, res) => {
     const body = matchedData(req)
-    const user = req.user
-    if (!user.verificate) {
-        res.status(401).send("ERROR_USER_NOT_VERIFICATED")
+    if(res.user.deleted){
+        res.status(404).send("ERROR_USER_NOT_FOUND")
     }
-    else {
-        password = await encrypt(body.password)
-        const data = await UserModel.findByIdAndUpdate(user._id, {password: password, verificate: false})
-        res.status(200).send(data)
+    else{
+        const user = req.user
+        if (!user.verificate) {
+            res.status(401).send("ERROR_USER_NOT_VERIFICATED")
+        }
+        else {
+            password = await encrypt(body.password)
+            const data = await UserModel.findByIdAndUpdate(user._id, {password: password, verificate: false})
+            res.status(200).send(data)
+        }   
     }
+    
 }
 
 const invitePartners = async (req, res) => {
     const partners = matchedData(req).partners
-    console.log(partners)
-    const company = req.user.company
-    const invitados = []
-    for(email of partners){
-        const invitado = await UserModel.findOne({email: email})
-        if(invitado === null){
-            const user = {
-                name: "invitado",
-                age: 0,
-                email: email,
-                password: await encrypt("12345678"),
-                role: ['guest'],
-                code_validation: crypto.randomBytes(3).toString('hex'),
-                validado: false,
-                intentos: process.env.NUM_INTENTOS,
-                bloqueado: false,
-                autonomo: true,
-                company: company,
-                deleted: false,
-                verificate: false
-            }
-            const data = await UserModel.create(user)
-            invitados.push(data)
-        }
-        else{
-            invitados.push(`ACCOUNT_ALREADY_EXISTS: ${email}`)
-        }
+    if(res.user.deleted){
+        res.status(404).send("ERROR_USER_NOT_FOUND")
     }
-    res.status(200).send(invitados)
+    else{
+        console.log(partners)
+        const company = req.user.company
+        const invitados = []
+        for(email of partners){
+            const invitado = await UserModel.findOne({email: email})
+            if(invitado === null){
+                const user = {
+                    name: "invitado",
+                    age: 0,
+                    email: email,
+                    password: await encrypt("12345678"),
+                    role: ['guest'],
+                    code_validation: crypto.randomBytes(3).toString('hex'),
+                    validado: false,
+                    intentos: process.env.NUM_INTENTOS,
+                    bloqueado: false,
+                    autonomo: true,
+                    company: company,
+                    deleted: false,
+                    verificate: false
+                }
+                const data = await UserModel.create(user)
+                invitados.push(data)
+            }
+            else{
+                invitados.push(`ACCOUNT_ALREADY_EXISTS: ${email}`)
+            }
+        }
+        res.status(200).send(invitados)
+    }
+    
 }
 
 module.exports = {
