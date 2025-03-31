@@ -78,7 +78,7 @@ const login = async (req, res) => {
     const body = matchedData(req)
     const user = await UserModel.findOne({ email: body.email })
 
-    if (user == null) {
+    if (user == null || user.deleted) {
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else {

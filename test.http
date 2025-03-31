@@ -27,7 +27,7 @@ POST http://localhost:3000/practica/user/login
 Content-Type: application/json
 
 {
-    "email": "jopetis28@gmail.com",
+    "email": "jopeetass@gmail.com",
     "password": "12345678"
 }
 
