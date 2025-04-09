@@ -11,9 +11,11 @@ const router = require('./routes')
 app.use('/practica', router)
 
 const port = process.env.PORT || 3000
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log("Servidor escuchando en el puerto: ", port)
 })
 
 const dbConnect = require('./config/mongo.js')
 dbConnect()
+
+module.exports = {app, server}
