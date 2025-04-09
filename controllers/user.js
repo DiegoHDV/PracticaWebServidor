@@ -28,13 +28,13 @@ const createItem = async (req, res) => {
             user: result
         }
 
-        const emailOptions = {
+        /*const emailOptions = {
             'subject': "Validación de email",
             'text': `Vuelve a la página e introduce el código para validar tu email en la aplicación ${body.code_validation}`,
             'to': body.email,
             'from': process.env.EMAIL
         }
-        sendEmail(emailOptions)
+        sendEmail(emailOptions)*/
         res.status(201).send(data)
         console.log("------------------------")
     } catch (err) {

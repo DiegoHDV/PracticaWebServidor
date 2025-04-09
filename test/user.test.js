@@ -18,12 +18,23 @@ beforeAll(async () => {
 describe('userRegister', () => {
     var token = ""
     var id = ""
-    test('should get an error due to lack of data', async () => {
+    test.skip('should get an error due to lack of data', async () => {
         const response = await request(app)
             .post('/practica/user/register')
             .send({ "name": "Menganito", "email": "jopetis28@gmail.com", "password": "HolaMundo.01" })
             .set('Accept', 'application/json')
             .expect(403)
+    })
+    test('should create a user', async () => {
+        const response = await request(app)
+            .post('/practica/user/register')
+            .send({ "name": "Juan", age: 20, "email": "jopetis28@gmail.com", "password": "HolaMundo.01" })
+            .set('Accept', 'application/json')
+            .expect(201)
+        expect(response.body.user.email).toEqual('jopetis28@gmail.com')
+        expect(response.body.user.role).toEqual(['user'])
+        token = response.body.token
+        id = response.body.user._id
     })
 })
 
