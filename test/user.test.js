@@ -6,6 +6,7 @@ const { tokenSign } = require('../utils/handleJwt')
 const UserModel = require('../models/user.js')
 
 const api = request(app)
+const userUsed = { "name": "Hola", age: 20, "email": "hola@gmail.com", "password": "HolaMundo.01" }
 
 let token
 beforeAll(async () => {
@@ -56,7 +57,7 @@ describe('userRegisterValidation', () => {
     test('should create a user', async () => {
         const response = await request(app)
             .post('/practica/user/register')
-            .send({ "name": "Hola", age: 20, "email": "hola@gmail.com", "password": "HolaMundo.01" })
+            .send(userUsed)
             .set('Accept', 'application/json')
             .expect(201)
         expect(response.body.user.email).toEqual('hola@gmail.com')
@@ -128,14 +129,14 @@ describe('userRegisterValidation', () => {
             .set('Accept', 'application/json')
             .expect(404)
     })
-    test('should get validate a user', async () => {
+    test('should validate a user', async () => {
         const response = await request(app)
             .post('/practica/user/register/validation')
             .auth(tokenHola, { type: 'bearer' })
             .send({ "code": code_validationHola })
             .set('Accept', 'application/json')
             .expect(200)
-        expect(response.body.email).toEqual('hola@gmail.com')
+        expect(response.body.email).toEqual(userUsed.email)
         expect(response.body.code_validation).toEqual(code_validationHola)
     })
     test('should get an error "ERROR_USER_ALREADY_VALIDATED"', async () => {
@@ -145,6 +146,86 @@ describe('userRegisterValidation', () => {
             .send({ "code": code_validationHola })
             .set('Accept', 'application/json')
             .expect(401)
+    })
+})
+
+
+describe('userLogin', () => {
+    var token = ""
+    var id = ""
+    var code_validation = 0
+    test('should get an error "USER_NOT_FOUND"', async () => {
+        const response = await request(app)
+            .post('/practica/user/login')
+            .send({ "email": "novalidado@gmail.com", "password": "HolaMundo.01" })
+            .set('Accept', 'application/json')
+            .expect(404)
+    })
+    test('should create a user', async () => {
+        const response = await request(app)
+            .post('/practica/user/register')
+            .send({ "name": "NoValidado", age: 20, "email": "novalidado@gmail.com", "password": "HolaMundo.01" })
+            .set('Accept', 'application/json')
+            .expect(201)
+        expect(response.body.user.email).toEqual('novalidado@gmail.com')
+        expect(response.body.user.role).toEqual(['user'])
+        token = response.body.token
+        id = response.body.user._id
+        code_validation = response.body.user.code_validation
+    })
+    test('should get an error due to lack of data', async () => {
+        const response = await request(app)
+            .post('/practica/user/login')
+            .send({"email": userUsed.email})
+            .set('Accept', 'application/json')
+            .expect(403)
+    })
+    test('should get an error user not validated', async () => {
+        const response = await request(app)
+            .post('/practica/user/login')
+            .send({ "email": "novalidado@gmail.com", "password": "HolaMundo.01" })
+            .set('Accept', 'application/json')
+            .expect(403)
+    })
+    test('should validate a user', async () => {
+        const response = await request(app)
+            .post('/practica/user/register/validation')
+            .auth(token, { type: 'bearer' })
+            .send({ "code": code_validation })
+            .set('Accept', 'application/json')
+            .expect(200)
+        expect(response.body.email).toEqual("novalidado@gmail.com")
+        expect(response.body.code_validation).toEqual(code_validation)
+    })
+    test('should get an error incorrect password and usser blocked', async () => {
+        const response1 = await request(app)
+            .post('/practica/user/login')
+            .send({ "email": "novalidado@gmail.com", "password": "123456789" })
+            .set('Accept', 'application/json')
+            .expect(402)
+        const response2 = await request(app)
+            .post('/practica/user/login')
+            .send({ "email": "novalidado@gmail.com", "password": "123456789" })
+            .set('Accept', 'application/json')
+            .expect(402)
+        const response3 = await request(app)
+            .post('/practica/user/login')
+            .send({ "email": "novalidado@gmail.com", "password": "123456789" })
+            .set('Accept', 'application/json')
+            .expect(402)
+        const response4 = await request(app)
+            .post('/practica/user/login')
+            .send({ "email": "novalidado@gmail.com", "password": "123456789" })
+            .set('Accept', 'application/json')
+            .expect(404)
+    })
+    test('should login a user', async () => {
+        const response = await request(app)
+            .post('/practica/user/login')
+            .send({ "email": userUsed.email, "password": userUsed.password })
+            .set('Accept', 'application/json')
+            .expect(200)
+        expect(response.body.user.email).toEqual(userUsed.email)
     })
 })
 

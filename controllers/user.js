@@ -94,7 +94,7 @@ const login = async (req, res) => {
                 const passwordMatch = await compare(body.password, user.password)
                 if (!passwordMatch) {
                     const userFallido = await UserModel.findOneAndUpdate({ email: body.email }, { intentos: user.intentos - 1 })
-                    res.status(404).send("ERROR_INCORRECT_DATA")
+                    res.status(402).send("ERROR_INCORRECT_DATA")
                 }
                 else {
                     const userAcertado = await UserModel.findOneAndUpdate({ email: body.email }, { intentos: 3 })
