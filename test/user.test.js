@@ -36,6 +36,13 @@ describe('userRegister', () => {
         token = response.body.token
         id = response.body.user._id
     })
+    test('should get an error "ERROR_EMAIL_ALREADY_EXISTS"', async () => {
+        const response = await request(app)
+            .post('/practica/user/register')
+            .send({ "name": "Juan", age: 20, "email": "jopetis28@gmail.com", "password": "HolaMundo.01" })
+            .set('Accept', 'application/json')
+            .expect(409)
+    })
 })
 
 
