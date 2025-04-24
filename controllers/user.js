@@ -157,7 +157,7 @@ const uploadPersonalData = async (req, res) => {
 
 const uploadCompanyData = async (req, res) => {
     const company = matchedData(req)
-    if(res.user.deleted){
+    if(req.user.deleted){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -169,7 +169,7 @@ const uploadCompanyData = async (req, res) => {
 }
 
 const getUser = async (req, res) => {
-    if(res.user.deleted){
+    if(req.user.deleted){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -181,7 +181,7 @@ const getUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     const soft = matchedData(req).soft
-    if(res.user.deleted){
+    if(req.user.deleted){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -200,7 +200,7 @@ const deleteUser = async (req, res) => {
 }
 
 const verificationCode = async (req, res) => {
-    if(res.user.deleted){
+    if(req.user.deleted){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -223,7 +223,7 @@ const verificationCode = async (req, res) => {
 
 const verifyVerificationCode = async (req, res) => {
     const body = matchedData(req)
-    if(res.user.deleted){
+    if(req.user.deleted){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -257,7 +257,7 @@ const verifyVerificationCode = async (req, res) => {
 
 const updatePassword = async (req, res) => {
     const body = matchedData(req)
-    if(res.user.deleted){
+    if(req.user.deleted){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -276,7 +276,7 @@ const updatePassword = async (req, res) => {
 
 const invitePartners = async (req, res) => {
     const partners = matchedData(req).partners
-    if(res.user.deleted){
+    if(req.user.deleted){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{

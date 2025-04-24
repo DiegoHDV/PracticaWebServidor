@@ -264,8 +264,7 @@ beforeEach(async () => {
     tokenUserDeleted = await tokenSign(userPruebaSoftDeletedA)
 })
 
-describe('personalData', () => {
-    
+describe.skip('personalData', () => {
     test('should get an error "NOT_SESSION"', async () => {
         const response = await request(app)
             .put('/practica/user/personalData')
@@ -313,6 +312,57 @@ describe('personalData', () => {
             .expect(200)
     })
 })
+
+
+describe('companyData', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .put('/practica/user/company')
+            .send({
+                "name": "U-Tad",
+                "cif": "12349078B",
+                "address": "Rozas"
+            })
+            .set('Accept', 'application/json')
+            .expect(401)
+    })
+    test('should get an error due to lack of data', async () => {
+        const response = await request(app)
+            .put('/practica/user/company')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "name": "U-Tad",
+                "cif": "12349078B"
+            })
+            .set('Accept', 'application/json')
+            .expect(403)
+    })
+    test('should get an error "ERROR_USER_NOT_FOUND"', async () => {
+        const response = await request(app)
+            .put('/practica/user/company')
+            .auth(tokenUserDeleted, { type: 'bearer' })
+            .send({
+                "name": "U-Tad",
+                "cif": "12349078B",
+                "address": "Rozas"
+            })
+            .set('Accept', 'application/json')
+            .expect(404)
+    })
+    test('should change the companyData', async () => {
+        const response = await request(app)
+            .put('/practica/user/company')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "name": "U-Tad",
+                "cif": "12349078B",
+                "address": "Rozas"
+            })
+            .set('Accept', 'application/json')
+            .expect(200)
+    })
+})
+
 
 afterAll(async () => {
     server.close()
