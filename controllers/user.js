@@ -137,7 +137,7 @@ const uploadImage = async (req, res) => {
 
 const uploadPersonalData = async (req, res) => {
     const personalData = matchedData(req)
-    if(res.user.deleted){
+    if(req.user.deleted){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{

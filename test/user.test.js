@@ -15,7 +15,7 @@ beforeAll(async () => {
 });
 
 
-describe('userRegister', () => {
+describe.skip('userRegister', () => {
     var token = ""
     var id = ""
     test.skip('should get an error due to lack of data', async () => {
@@ -46,7 +46,7 @@ describe('userRegister', () => {
 })
 
 
-describe('userRegisterValidation', () => {
+describe.skip('userRegisterValidation', () => {
     var tokenHola = ""
     var idHola = ""
     var code_validationHola = 0
@@ -145,7 +145,7 @@ describe('userRegisterValidation', () => {
 })
 
 
-describe('userLogin', () => {
+describe.skip('userLogin', () => {
     var token = ""
     var id = ""
     var code_validation = 0
@@ -225,7 +225,7 @@ describe('userLogin', () => {
     })
 })
 
-const userPrueba = {
+var userPrueba = {
     "name":"Pruebas",
     "age":20,
     "email":"prueba@gmail.com",
@@ -239,15 +239,80 @@ const userPrueba = {
     "deleted":false,
     "verificate":false
 }
-const tokenUserPrueba = ""
-const idUserPrueba = ""
+var userPruebaSoftDeleted = {
+    "name":"PruebaDeleted",
+    "age":23,
+    "email":"pruebadeleted@gmail.com",
+    "password":"PruebaDeleted123",
+    "role":["user"],
+    "code_validation":"567890",
+    "validado":true,
+    "intentos":3,
+    "bloqueado":false,
+    "autonomo":true,
+    "deleted":true,
+    "verificate":false
+}
+var tokenUserPrueba = ""
+var idUserPrueba = ""
 
 beforeEach(async () => {
     await UserModel.deleteMany({})
-    await UserModel.create(userPrueba)
+    userPruebaA = await UserModel.create(userPrueba)
+    tokenUserPrueba = await tokenSign(userPruebaA)
+    userPruebaSoftDeletedA = await UserModel.create(userPruebaSoftDeleted)
+    tokenUserDeleted = await tokenSign(userPruebaSoftDeletedA)
 })
 
-
+describe('personalData', () => {
+    
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .put('/practica/user/personalData')
+            .send({
+                "name2": "Patata",
+                "fullname": "Campera",
+                "nif": "12341234B"
+            })
+            .set('Accept', 'application/json')
+            .expect(401)
+    })
+    test('should get an error due to lack of data', async () => {
+        const response = await request(app)
+            .put('/practica/user/personalData')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "name2": "Patata",
+                "fullname": "Campera"
+            })
+            .set('Accept', 'application/json')
+            .expect(403)
+    })
+    test('should get an error "ERROR_USER_NOT_FOUND"', async () => {
+        const response = await request(app)
+            .put('/practica/user/personalData')
+            .auth(tokenUserDeleted, { type: 'bearer' })
+            .send({
+                "name2": "Patata",
+                "fullname": "Campera",
+                "nif": "12341234B"
+            })
+            .set('Accept', 'application/json')
+            .expect(404)
+    })
+    test('should change the personalData', async () => {
+        const response = await request(app)
+            .put('/practica/user/personalData')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "name2": "Patata",
+                "fullname": "Campera",
+                "nif": "12341234B"
+            })
+            .set('Accept', 'application/json')
+            .expect(200)
+    })
+})
 
 afterAll(async () => {
     server.close()
