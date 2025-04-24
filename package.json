@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --watch index.js",
-    "test": "cross-env NODE_ENV=test jest -verbose --all"
+    "test": "cross-env NODE_ENV=test jest -verbose --all --runningBan"
   },
   "keywords": [],
   "author": "",

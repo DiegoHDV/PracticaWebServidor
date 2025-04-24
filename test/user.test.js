@@ -11,7 +11,6 @@ const userUsed = { "name": "Hola", age: 20, "email": "hola@gmail.com", "password
 let token
 beforeAll(async () => {
     await new Promise((resolve) => mongoose.connection.once('connected', resolve));
-    await UserModel.deleteMany({})
 
 });
 
@@ -55,28 +54,28 @@ describe('userRegisterValidation', () => {
     var idHMundo = ""
     var code_validationHMundo = 0
     test('should create a user', async () => {
-        const response = await request(app)
-            .post('/practica/user/register')
-            .send(userUsed)
-            .set('Accept', 'application/json')
-            .expect(201)
-        expect(response.body.user.email).toEqual('hola@gmail.com')
-        expect(response.body.user.role).toEqual(['user'])
-        tokenHola = response.body.token
-        idHola = response.body.user._id
-        code_validationHola = response.body.user.code_validation
-    })
-    test('should create a user', async () => {
-        const response = await request(app)
+        const response1 = await request(app)
             .post('/practica/user/register')
             .send({ "name": "HolaMundo", age: 20, "email": "holaMundo@gmail.com", "password": "HolaMundo.01" })
             .set('Accept', 'application/json')
             .expect(201)
-        expect(response.body.user.email).toEqual('holaMundo@gmail.com')
-        expect(response.body.user.role).toEqual(['user'])
-        tokenHMundo = response.body.token
-        idHMundo = response.body.user._id
-        code_validationHMundo = response.body.user.code_validation
+        expect(response1.body.user.email).toEqual('holaMundo@gmail.com')
+        expect(response1.body.user.role).toEqual(['user'])
+        tokenHMundo = response1.body.token
+        idHMundo = response1.body.user._id
+        code_validationHMundo = response1.body.user.code_validation
+
+        const response2 = await request(app)
+            .post('/practica/user/register')
+            .send(userUsed)
+            .set('Accept', 'application/json')
+            .expect(201)
+        expect(response2.body.user.email).toEqual('hola@gmail.com')
+        expect(response2.body.user.role).toEqual(['user'])
+        tokenHola = response2.body.token
+        idHola = response2.body.user._id
+        code_validationHola = response2.body.user.code_validation
+        userUsed.id = idHola
     })
     test('should get an error "NOT_SESSION"', async () => {
         const response = await request(app)
@@ -86,28 +85,18 @@ describe('userRegisterValidation', () => {
             .expect(401)
     })
     test('should get an error due to lack of data', async () => {
-        const response = await request(app)
-            .post('/practica/user/register/validation')
-            .auth(tokenHMundo, { type: 'bearer' })
-            .send({ "code": 12345 })
-            .set('Accept', 'application/json')
-            .expect(403)
-    })
-    test('should get an error due to lack of data', async () => {
-        const response = await request(app)
+        const response1 = await request(app)
             .post('/practica/user/register/validation')
             .auth(tokenHMundo, { type: 'bearer' })
             .send({ "code": 1234567 })
             .set('Accept', 'application/json')
             .expect(403)
-    })
-    test('should get an error "ERROR_CODE_VALIDATION"', async () => {
-        const response = await request(app)
+        const response2 = await request(app)
             .post('/practica/user/register/validation')
             .auth(tokenHMundo, { type: 'bearer' })
-            .send({ "code": 123456 })
+            .send({ "code": 12345 })
             .set('Accept', 'application/json')
-            .expect(401)
+            .expect(403)
     })
     test('should get an error "ERROR_CODE_VALIDATION" and user blocked', async () => {
         const response1 = await request(app)
@@ -123,6 +112,12 @@ describe('userRegisterValidation', () => {
             .set('Accept', 'application/json')
             .expect(401)
         const response3 = await request(app)
+            .post('/practica/user/register/validation')
+            .auth(tokenHMundo, { type: 'bearer' })
+            .send({ "code": 123456 })
+            .set('Accept', 'application/json')
+            .expect(401)
+        const response4 = await request(app)
             .post('/practica/user/register/validation')
             .auth(tokenHMundo, { type: 'bearer' })
             .send({ "code": 123456 })
@@ -226,8 +221,32 @@ describe('userLogin', () => {
             .set('Accept', 'application/json')
             .expect(200)
         expect(response.body.user.email).toEqual(userUsed.email)
+        expect(response.body.user._id).toEqual(userUsed.id)
     })
 })
+
+const userPrueba = {
+    "name":"Pruebas",
+    "age":20,
+    "email":"prueba@gmail.com",
+    "password":"Prueba123",
+    "role":["user"],
+    "code_validation":"123456",
+    "validado":true,
+    "intentos":3,
+    "bloqueado":false,
+    "autonomo":true,
+    "deleted":false,
+    "verificate":false
+}
+const tokenUserPrueba = ""
+const idUserPrueba = ""
+
+beforeEach(async () => {
+    await UserModel.deleteMany({})
+    await UserModel.create(userPrueba)
+})
+
 
 
 afterAll(async () => {
