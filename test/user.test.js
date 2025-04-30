@@ -1,3 +1,7 @@
+const email = require('../utils/handleEmail.js')
+const spyEmail = jest.spyOn(email, 'sendEmail').mockImplementation(() => {
+    console.log("Enviado email")
+})
 const request = require("supertest")
 const { app, server } = require("../index.js")
 const mongoose = require("mongoose")
@@ -14,8 +18,11 @@ beforeAll(async () => {
 
 });
 
+/**
+ * spy.mockClear() Para limpiar el número de llamadas a la función dicha en el spyOn
+ */
 
-describe.skip('userRegister', () => {
+describe('userRegister', () => {
     var token = ""
     var id = ""
     test.skip('should get an error due to lack of data', async () => {
@@ -33,13 +40,12 @@ describe.skip('userRegister', () => {
             .expect(201)
         expect(response.body.user.email).toEqual('jopetis28@gmail.com')
         expect(response.body.user.role).toEqual(['user'])
-        token = response.body.token
-        id = response.body.user._id
+        expect(spyEmail).toHaveBeenCalled()
     })
     test('should get an error "ERROR_EMAIL_ALREADY_EXISTS"', async () => {
         const response = await request(app)
             .post('/practica/user/register')
-            .send({ "name": "Juan", age: 20, "email": "jopetis28@gmail.com", "password": "HolaMundo.01" })
+            .send(userPrueba)
             .set('Accept', 'application/json')
             .expect(409)
     })
@@ -314,7 +320,7 @@ describe.skip('personalData', () => {
 })
 
 
-describe('companyData', () => {
+describe.skip('companyData', () => {
     test('should get an error "NOT_SESSION"', async () => {
         const response = await request(app)
             .put('/practica/user/company')

@@ -9,8 +9,8 @@ const { uploadToPinata } = require("../utils/handleUploadIPFS.js")
 const createItem = async (req, res) => {
     try {
         req = matchedData(req)
-        console.log(req)
-        console.log("------------------------")
+        //console.log(req)
+        //console.log("------------------------")
         password = await encrypt(req.password)
         code_validation = crypto.randomBytes(3).toString('hex')
         validado = false
@@ -20,7 +20,7 @@ const createItem = async (req, res) => {
         deleted = false
         verificate = false
         body = { ...req, password, code_validation, validado, intentos, bloqueado, autonomo, deleted, verificate }
-        console.log(body)
+        //console.log(body)
         const result = await UserModel.create(body)
 
         const data = {
@@ -28,21 +28,21 @@ const createItem = async (req, res) => {
             user: result
         }
 
-        /*const emailOptions = {
+        const emailOptions = {
             'subject': "Validación de email",
             'text': `Vuelve a la página e introduce el código para validar tu email en la aplicación ${body.code_validation}`,
             'to': body.email,
             'from': process.env.EMAIL
         }
-        sendEmail(emailOptions)*/
+        sendEmail(emailOptions)
         res.status(201).send(data)
-        console.log("------------------------")
+        //console.log("------------------------")
     } catch (err) {
         if (err.code == 11000) {
             res.status(409).send("ERROR_EMAIL_ALREADY_EXISTS")
         }
         else {
-            console.log(err)
+            //console.log(err)
             res.status(500).send("Internal server error")
         }
     }
