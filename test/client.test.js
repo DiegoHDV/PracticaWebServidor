@@ -42,6 +42,7 @@ beforeAll(async () => {
 
 beforeEach(async () => {
     await UserModel.deleteMany({})
+    await ClientModel.deleteMany({})
     userPrueba.password = await encrypt(password)
     userPruebaA = await UserModel.create(userPrueba)
     tokenUserPrueba = await tokenSign(userPruebaA)
@@ -50,6 +51,13 @@ beforeEach(async () => {
 })
 
 describe('post Client', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .post('/practica/client')
+            .send(clientPrueba)
+            .set('Accept', 'application/json')
+            .expect(401)
+    })
     test('should get an error due to lack of data', async () => {
         const response = await request(app)
             .post('/practica/client')
@@ -79,7 +87,34 @@ describe('post Client', () => {
 })
 
 describe('update Client', () => {
-    test()
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .patch(`/practica/client/${clienteCreadoA._id.toString()}`)
+            .send(clientPrueba)
+            .set('Accept', 'application/json')
+            .expect(401)
+    })
+    test('should get an error CLIENT NOT FOUND', async () =>{
+        const response = await request(app)
+            .patch('/practica/client/12')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "name": "no Existe"
+            })
+            .set('Accept', 'application/json')
+            .expect(404)
+    })
+    test('should update a client', async () => {
+        const modificacion = 'modificado'
+        const response = await request(app)
+            .patch(`/practica/client/${clienteCreadoA._id.toString()}`)
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "name": modificacion
+            })
+            .set('Accept', 'application/json')
+            .expect(200)
+    })
 })
 
 afterAll(async () => {

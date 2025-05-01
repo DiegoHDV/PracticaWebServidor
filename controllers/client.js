@@ -21,7 +21,7 @@ const updateItem = async (req, res) => {
     const clients = await ClientModel.find({userId: req.user._id})
     const exists = clients.some(client => client._id.toString() === req.params.id)
     if(!exists){
-        res.status(404).status("ERROR CLIENT NOT FOUND")
+        res.status(404).send("ERROR CLIENT NOT FOUND")
     }
     else{
         const client = await ClientModel.findByIdAndUpdate(req.params.id, body)
