@@ -113,7 +113,7 @@ const login = async (req, res) => {
 }
 
 const uploadImage = async (req, res) => {
-    if(res.user.deleted){
+    if(req.user.deleted){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -132,7 +132,6 @@ const uploadImage = async (req, res) => {
             res.status(500).send("ERROR_UPLOAD_COMPANY_IMAGE")
         }
     }
-    
 }
 
 const uploadPersonalData = async (req, res) => {
