@@ -163,7 +163,7 @@ describe('get client by id', () => {
     })
 })
 
-describe('delete soft a client', () => {
+describe('delete soft and hard a client', () => {
     test('should get an error "NOT_SESSION"', async () => {
         const response = await request(app)
             .delete('/practica/client/deleteClient?soft=true')
@@ -205,6 +205,16 @@ describe('delete soft a client', () => {
     test('should delete soft a client', async () => {
         const response = await request(app)
             .delete('/practica/client/deleteClient?soft=true')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "cif": clienteCreado.cif
+            })
+            .set('Accept', 'application/json')
+            .expect(200)
+    })
+    test('should delete hard a client', async () => {
+        const response = await request(app)
+            .delete('/practica/client/deleteClient?soft=false')
             .auth(tokenUserPrueba, { type: 'bearer' })
             .send({
                 "cif": clienteCreado.cif
