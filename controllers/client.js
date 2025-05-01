@@ -18,8 +18,16 @@ const createItem = async (req, res) => {
 
 const updateItem = async (req, res) => {
     const body = matchedData(req)
-    const client = await ClientModel.findByIdAndUpdate(req.params.id, body)
-    res.status(200).send(client)
+    const clients = await ClientModel.find({userId: req.user._id})
+    const exists = clients.some(client => client._id.toString() === req.params.id)
+    if(!exists){
+        res.status(404).status("ERROR CLIENT NOT FOUND")
+    }
+    else{
+        const client = await ClientModel.findByIdAndUpdate(req.params.id, body)
+        res.status(200).send(client)
+    }
+    
 }
 
 module.exports = {

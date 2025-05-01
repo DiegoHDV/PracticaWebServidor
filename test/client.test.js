@@ -29,6 +29,12 @@ var clientPrueba = {
     "address": "Madrid" 
 }
 
+var clienteCreado = {
+    "name": "clienteCreado",
+    "cif": "87654321B",
+    "address": "Madrid"
+}
+
 beforeAll(async () => {
     await new Promise((resolve) => mongoose.connection.once('connected', resolve));
 
@@ -39,6 +45,8 @@ beforeEach(async () => {
     userPrueba.password = await encrypt(password)
     userPruebaA = await UserModel.create(userPrueba)
     tokenUserPrueba = await tokenSign(userPruebaA)
+    clienteCreado.userId = userPruebaA._id.toString()
+    clienteCreadoA = await ClientModel.create(clienteCreado)
 })
 
 describe('post Client', () => {
@@ -68,6 +76,10 @@ describe('post Client', () => {
             .set('Accept', 'application/json')
             .expect(401)
     })
+})
+
+describe('update Client', () => {
+    test()
 })
 
 afterAll(async () => {
