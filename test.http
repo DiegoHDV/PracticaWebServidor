@@ -134,3 +134,13 @@ Content-Type: application/json
     "cif": "12345678A",
     "address": "Madrid"
 }
+
+###
+PATCH http://localhost:3000/practica/client/6813512faed74a82ad520183
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzNGZlMWEwNzZjMWU1M2ZkNGIxYTIiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MDk2MTI5LCJleHAiOjE3NDYxMDMzMjl9.ipdgeR_wOzCCczBxfYJWzAUUYlLAzrF02W_0zAMSUQo
+Content-Type: application/json
+
+{
+    "name": "clienteModificado",
+    "probando": "probado"
+}

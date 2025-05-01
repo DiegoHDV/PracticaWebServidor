@@ -16,6 +16,13 @@ const createItem = async (req, res) => {
     }
 }
 
+const updateItem = async (req, res) => {
+    const body = matchedData(req)
+    const client = await ClientModel.findByIdAndUpdate(req.params.id, body)
+    res.status(200).send(client)
+}
+
 module.exports = {
-    createItem
+    createItem,
+    updateItem
 }

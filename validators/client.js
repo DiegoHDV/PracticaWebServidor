@@ -10,6 +10,16 @@ const validatorCreateItem = [
     }
 ]
 
+const validatorUpdateItem = [
+    check("name").optional().notEmpty(),
+    check("cif").optional().notEmpty().isLength({min:9, max:9}),
+    check("address").optional().notEmpty(),
+    (req, res, next) => {
+        return validateResults(req, res, next)
+    }
+]
+
 module.exports = {
-    validatorCreateItem
+    validatorCreateItem,
+    validatorUpdateItem
 }
