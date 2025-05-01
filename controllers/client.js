@@ -35,8 +35,21 @@ const getUserClients = async (req, res) => {
     res.status(200).send(userClients)
 }
 
+const getClient = async (req, res) => {
+    const clients = await ClientModel.find({userId: req.user._id})
+    const exists = clients.some(client => client._id.toString() === req.params.id)
+    if(!exists){
+        res.status(404).send("ERROR CLIENT NOT FOUND")
+    }
+    else{
+        const client = await ClientModel.findById(req.params.id)
+        res.status(200).send(client)
+    }
+}
+
 module.exports = {
     createItem,
     updateItem,
-    getUserClients
+    getUserClients,
+    getClient
 }

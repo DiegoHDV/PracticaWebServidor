@@ -148,3 +148,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/practica/client
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTA5NzM5LCJleHAiOjE3NDYxMTY5Mzl9.IL4LzZ0ZN5p8sqFMw5GwKQpZpKWc30ZhI4EePrxItzQ
+
+###
+GET http://localhost:3000/practica/client/68138543d7d6eb6f73b74406
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTA5NzM5LCJleHAiOjE3NDYxMTY5Mzl9.IL4LzZ0ZN5p8sqFMw5GwKQpZpKWc30ZhI4EePrxItzQ
