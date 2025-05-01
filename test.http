@@ -14,11 +14,11 @@ Content-Type: application/json
 
 ###
 POST http://localhost:3000/practica/user/register/validation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzNGZlMWEwNzZjMWU1M2ZkNGIxYTIiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MDk2MDk3LCJleHAiOjE3NDYxMDMyOTd9.FUwU_VMvjiNX3AWOeUB_GLUY14xHjdczGo0etAnTz0Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTA5NzIzLCJleHAiOjE3NDYxMTY5MjN9.6i40t67bFNMWkCpFvj7PyZRGRhFgcL9Dk57lBup4mDU
 Content-Type: application/json
 
 {
-    "code": "4ae836"
+    "code": "19e20c"
 }
 
 
@@ -126,7 +126,7 @@ Content-Type: application/json
 # C  L  I  E  N  T  S
 ###
 POST http://localhost:3000/practica/client
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzNGZlMWEwNzZjMWU1M2ZkNGIxYTIiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MDk2MTI5LCJleHAiOjE3NDYxMDMzMjl9.ipdgeR_wOzCCczBxfYJWzAUUYlLAzrF02W_0zAMSUQo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTA5NzM5LCJleHAiOjE3NDYxMTY5Mzl9.IL4LzZ0ZN5p8sqFMw5GwKQpZpKWc30ZhI4EePrxItzQ
 Content-Type: application/json
 
 {
@@ -144,3 +144,7 @@ Content-Type: application/json
     "name": "clienteModificado",
     "probando": "probado"
 }
+
+###
+GET http://localhost:3000/practica/client
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTA5NzM5LCJleHAiOjE3NDYxMTY5Mzl9.IL4LzZ0ZN5p8sqFMw5GwKQpZpKWc30ZhI4EePrxItzQ

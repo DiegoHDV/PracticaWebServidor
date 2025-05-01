@@ -30,7 +30,13 @@ const updateItem = async (req, res) => {
     
 }
 
+const getUserClients = async (req, res) => {
+    const userClients = await ClientModel.find({userId: req.user._id})
+    res.status(200).send(userClients)
+}
+
 module.exports = {
     createItem,
-    updateItem
+    updateItem,
+    getUserClients
 }
