@@ -1,4 +1,3 @@
-const { readerrevenuesubscriptionlinking } = require('googleapis/build/src/apis/readerrevenuesubscriptionlinking/index.js')
 const ClientModel = require('../models/client.js')
 const { matchedData } = require('express-validator')
 
@@ -76,14 +75,19 @@ const deleteClient = async (req, res) => {
 }
 
 const restoreClient = async (req, res) => {
-    const data = await ClientModel.restore({_id: req.params.id})
-    if(!data.modifiedCount){
-        res.status(404).send("ERROR CLIENT NOT FOUND")
+    try{
+        const data = await ClientModel.restore({_id: req.params.id})
+        if(data.modifiedCount === 0){
+            res.status(404).send("ERROR CLIENT NOT FOUND")
+        }
+        else{
+            res.status(200).send(data)
+        }
+    }catch(err){
+        if(req.params.id.length !== 24){
+            res.status(404).send("ERROR CLIENT NOT FOUND")
+        }
     }
-    else{
-        res.status(200).send(data)
-    }
-    
 }
 
 module.exports = {
