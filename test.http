@@ -152,3 +152,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxY
 ###
 GET http://localhost:3000/practica/client/68138543d7d6eb6f73b74406
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTA5NzM5LCJleHAiOjE3NDYxMTY5Mzl9.IL4LzZ0ZN5p8sqFMw5GwKQpZpKWc30ZhI4EePrxItzQ
+
+###
+DELETE http://localhost:3000/practica/client/deleteClient?soft=true
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTA5NzM5LCJleHAiOjE3NDYxMTY5Mzl9.IL4LzZ0ZN5p8sqFMw5GwKQpZpKWc30ZhI4EePrxItzQ
+Content-Type: application/json
+
+{
+    "cif": "12345678A"
+}

@@ -47,9 +47,33 @@ const getClient = async (req, res) => {
     }
 }
 
+const deleteClient = async (req, res) => {
+    const body = matchedData(req)
+    
+    const clients = await ClientModel.find({userId: req.user._id})
+    const exists = clients.some(client => client.cif === body.cif)
+
+    if(!exists){
+        res.status(404).send("ERROR CLIENT NOT FOUND")
+    }
+    else{
+        const client = await ClientModel.findOne({cif: body.cif})
+        if (body.soft) {
+            const data = await ClientModel.delete({_id: client._id})
+            res.status(200).send(data)
+        }
+        else {
+            const data = await ClientModel.findByIdAndDelete(client._id)
+            res.status(200).send("Usuario borrado correctamente")
+        }
+    }
+    
+}
+
 module.exports = {
     createItem,
     updateItem,
     getUserClients,
-    getClient
+    getClient,
+    deleteClient
 }
