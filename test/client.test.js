@@ -35,6 +35,12 @@ var clienteCreado = {
     "address": "Madrid"
 }
 
+var clientDeleted = {
+    "name": "clienteCreado",
+    "cif": "12345678C",
+    "address": "Madrid"
+}
+
 beforeAll(async () => {
     await new Promise((resolve) => mongoose.connection.once('connected', resolve));
 
@@ -48,6 +54,9 @@ beforeEach(async () => {
     tokenUserPrueba = await tokenSign(userPruebaA)
     clienteCreado.userId = userPruebaA._id.toString()
     clienteCreadoA = await ClientModel.create(clienteCreado)
+    clientDeleted.userId = userPruebaA._id.toString()
+    clientDeletedA = await ClientModel.create(clientDeleted)
+    await ClientModel.delete({_id: clientDeletedA._id})
 })
 
 describe('post Client', () => {
@@ -133,7 +142,7 @@ describe('get user clients', () => {
     })
 })
 
-describe('get cñient by id', () => {
+describe('get client by id', () => {
     test('should get an error "NOT_SESSION"', async () => {
         const response = await request(app)
             .get('/practica/client')
@@ -151,6 +160,57 @@ describe('get cñient by id', () => {
             .auth(tokenUserPrueba, { type: 'bearer' })
             .expect(200)
         expect(response.body._id).toEqual(clienteCreadoA._id.toString())
+    })
+})
+
+describe('delete soft a client', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .delete('/practica/client/deleteClient?soft=true')
+            .expect(401)
+    })
+    test('should get an error due to lack of data', async () => {
+        const response1 = await request(app)
+            .delete('/practica/client/deleteClient')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "cif": clienteCreado.cif
+            })
+            .set('Accept', 'application/json')
+            .expect(403)
+        const response2 = await request(app)
+            .delete('/practica/client/deleteClient?soft=true')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .set('Accept', 'application/json')
+            .expect(403)
+    })
+    test('should get error CLIENT NOT FOUND', async () => {
+        const response = await request(app)
+            .delete('/practica/client/deleteClient?soft=true')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "cif": "AAAAAAAAA"
+            })
+            .set('Accept', 'application/json')
+            .expect(404)
+        const response2 = await request(app)
+            .delete('/practica/client/deleteClient?soft=true')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "cif": clientDeleted.cif
+            })
+            .set('Accept', 'application/json')
+            .expect(404)
+    })
+    test('should delete soft a client', async () => {
+        const response = await request(app)
+            .delete('/practica/client/deleteClient?soft=true')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "cif": clienteCreado.cif
+            })
+            .set('Accept', 'application/json')
+            .expect(200)
     })
 })
 

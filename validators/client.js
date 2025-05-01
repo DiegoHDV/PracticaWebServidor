@@ -20,7 +20,7 @@ const validatorUpdateItem = [
 ]
 
 const validatorDeleteClient = [
-    check("cif").optional().notEmpty().isLength({min:9, max:9}),
+    check("cif").exists().notEmpty().isLength({min:9, max:9}),
     check("soft").exists().notEmpty().toBoolean(),
     (req, res, next) => {
         return validateResults(req, res, next)
