@@ -1,3 +1,4 @@
+const { readerrevenuesubscriptionlinking } = require('googleapis/build/src/apis/readerrevenuesubscriptionlinking/index.js')
 const ClientModel = require('../models/client.js')
 const { matchedData } = require('express-validator')
 
@@ -9,10 +10,15 @@ const createItem = async (req, res) => {
         res.status(401).send("ERROR CLIENT ALREADY EXISTS")
     }
     else{
-        const newClient = body
-        newClient.userId = req.user._id
-        const data = await ClientModel.create(newClient)
-        res.status(201).send(data)
+        try{
+            const newClient = body
+            newClient.userId = req.user._id
+            const data = await ClientModel.create(newClient)
+            res.status(201).send(data)
+        }catch(err){
+            res.status(405).send("ERROR CLIENT ALREADY EXISTS")
+        }
+        
     }
 }
 
@@ -67,6 +73,16 @@ const deleteClient = async (req, res) => {
             res.status(200).send("Usuario borrado correctamente")
         }
     }
+}
+
+const restoreClient = async (req, res) => {
+    const data = await ClientModel.restore({_id: req.params.id})
+    if(!data.modifiedCount){
+        res.status(404).send("ERROR CLIENT NOT FOUND")
+    }
+    else{
+        res.status(200).send(data)
+    }
     
 }
 
@@ -75,5 +91,6 @@ module.exports = {
     updateItem,
     getUserClients,
     getClient,
-    deleteClient
+    deleteClient,
+    restoreClient
 }

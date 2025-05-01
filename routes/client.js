@@ -1,6 +1,6 @@
 const express = require('express')
 const clientRouter = express.Router()
-const {createItem, updateItem, getUserClients, getClient, deleteClient} = require('../controllers/client.js')
+const {createItem, updateItem, getUserClients, getClient, deleteClient, restoreClient} = require('../controllers/client.js')
 const {validatorCreateItem, validatorUpdateItem, validatorDeleteClient} = require('../validators/client.js')
 const {authMiddleware} = require('../middleware/sessionJwt.js')
 const app = express()
@@ -15,7 +15,8 @@ clientRouter.get('/', authMiddleware, getUserClients)
 
 clientRouter.get('/:id', authMiddleware, getClient)
 
-clientRouter.delete('/:id', authMiddleware, validatorDeleteClient, deleteClient)
+clientRouter.delete('/deleteClient', authMiddleware, validatorDeleteClient, deleteClient)
 
+clientRouter.post('/restore/:id', authMiddleware, restoreClient)
 
 module.exports = clientRouter

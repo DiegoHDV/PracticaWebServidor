@@ -36,7 +36,7 @@ var clienteCreado = {
 }
 
 var clientDeleted = {
-    "name": "clienteCreado",
+    "name": "clienteBorrado",
     "cif": "12345678C",
     "address": "Madrid"
 }

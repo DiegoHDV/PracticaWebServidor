@@ -5,7 +5,10 @@ const ClientScheme = new mongoose.Schema(
     {
         userId: String,
         name: String,
-        cif: String,
+        cif: {
+            unique: true,
+            type: String
+        },
         address: String,
         logo: String,
         deleted: {

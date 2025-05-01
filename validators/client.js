@@ -30,5 +30,5 @@ const validatorDeleteClient = [
 module.exports = {
     validatorCreateItem,
     validatorUpdateItem,
-    validatorDeleteClient
+    validatorDeleteClient,
 }

@@ -126,11 +126,11 @@ Content-Type: application/json
 # C  L  I  E  N  T  S
 ###
 POST http://localhost:3000/practica/client
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTA5NzM5LCJleHAiOjE3NDYxMTY5Mzl9.IL4LzZ0ZN5p8sqFMw5GwKQpZpKWc30ZhI4EePrxItzQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTE3MDAwLCJleHAiOjE3NDYxMjQyMDB9.GPkzCjka1DBy1TlLVMfTA628lkLBzs82fliKqN4DbIA
 Content-Type: application/json
 
 {
-    "name": "cliente1",
+    "name": "cliente2",
     "cif": "12345678A",
     "address": "Madrid"
 }
@@ -155,9 +155,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxY
 
 ###
 DELETE http://localhost:3000/practica/client/deleteClient?soft=true
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTA5NzM5LCJleHAiOjE3NDYxMTY5Mzl9.IL4LzZ0ZN5p8sqFMw5GwKQpZpKWc30ZhI4EePrxItzQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTE3MDAwLCJleHAiOjE3NDYxMjQyMDB9.GPkzCjka1DBy1TlLVMfTA628lkLBzs82fliKqN4DbIA
 Content-Type: application/json
 
 {
     "cif": "12345678A"
 }
+
+###
+POST http://localhost:3000/practica/client/restore/6813a14567eb79f67d1ffa0b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTE3MDAwLCJleHAiOjE3NDYxMjQyMDB9.GPkzCjka1DBy1TlLVMfTA628lkLBzs82fliKqN4DbIA
