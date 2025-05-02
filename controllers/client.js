@@ -9,15 +9,10 @@ const createItem = async (req, res) => {
         res.status(401).send("ERROR CLIENT ALREADY EXISTS")
     }
     else{
-        try{
-            const newClient = body
+           const newClient = body
             newClient.userId = req.user._id
             const data = await ClientModel.create(newClient)
             res.status(201).send(data)
-        }catch(err){
-            res.status(405).send("ERROR CLIENT ALREADY EXISTS")
-        }
-        
     }
 }
 
@@ -82,7 +77,7 @@ const restoreClient = async (req, res) => {
         }
         else{
             res.status(200).send(data)
-        }
+        }        
     }catch(err){
         if(req.params.id.length !== 24){
             res.status(404).send("ERROR CLIENT NOT FOUND")

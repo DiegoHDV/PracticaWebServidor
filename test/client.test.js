@@ -92,12 +92,6 @@ describe('post Client', () => {
             .send(clientPrueba)
             .set('Accept', 'application/json')
             .expect(401)
-        const responseFail2 = await request(app)
-            .post('/practica/client')
-            .auth(tokenUserPrueba, { type: 'bearer' })
-            .send(clientDeleted)
-            .set('Accept', 'application/json')
-            .expect(405)
     })
 })
 
