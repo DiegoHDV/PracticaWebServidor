@@ -19,7 +19,16 @@ const validatorUpdateItem = [
     }
 ]
 
+const validatorDeleteProject = [
+    check("projectCode").exists().notEmpty(),
+    check("soft").exists().notEmpty().toBoolean(),
+    (req, res, next) => {
+        return validateResults(req, res, next)
+    }
+]
+
 module.exports = {
     validatorCreateItem,
-    validatorUpdateItem
+    validatorUpdateItem,
+    validatorDeleteProject
 }

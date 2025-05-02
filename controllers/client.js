@@ -64,7 +64,7 @@ const deleteClient = async (req, res) => {
         }
         else {
             const data = await ClientModel.findByIdAndDelete(client._id)
-            res.status(200).send("Usuario borrado correctamente")
+            res.status(200).send("Cliente borrado correctamente")
         }
     }
 }

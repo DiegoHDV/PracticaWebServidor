@@ -53,9 +53,32 @@ const getProject = async (req, res) => {
     }
 }
 
+const deleteProject = async (req, res) => {
+    const body = matchedData(req)
+    
+    const projects = await ProjectModel.find({userId: req.user._id})
+    const exists = projects.some(project => project.projectCode === body.projectCode)
+
+    if(!exists){
+        res.status(404).send("ERROR PROJECT NOT FOUND")
+    }
+    else{
+        const project = await ProjectModel.findOne({cif: body.cif})
+        if (body.soft) {
+            const data = await ProjectModel.delete({_id: project._id})
+            res.status(200).send(data)
+        }
+        else {
+            const data = await ProjectModel.findByIdAndDelete(project._id)
+            res.status(200).send("Proyecto borrado correctamente")
+        }
+    }
+}
+
 module.exports = {
     createItem,
     updateItem,
     getUserProjects,
-    getProject
+    getProject,
+    deleteProject
 }

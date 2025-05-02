@@ -189,7 +189,7 @@ Content-Type: application/json
 
 {
     "clientId": "68148efa7ae09a0502a7a5e1",
-    "projectCode": "1234",
+    "projectCode": "123",
     "name": "prueba",
     "address": "Madrid"
 }
@@ -210,3 +210,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxY
 ###
 GET http://localhost:3000/practica/project/6814a50d2d464a6be0aaf2aa
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTk4MzI0LCJleHAiOjE3NDYyMDU1MjR9.h9eOudznF4pJrAP5QHPBeV2wv9ojwMqbTI6p2ACsrmY
+
+###
+DELETE http://localhost:3000/practica/project/deleteProject?soft=true
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTk4MzI0LCJleHAiOjE3NDYyMDU1MjR9.h9eOudznF4pJrAP5QHPBeV2wv9ojwMqbTI6p2ACsrmY
+Content-Type: application/json
+
+{
+    "projectCode": "123"
+}
