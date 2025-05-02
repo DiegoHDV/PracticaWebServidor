@@ -23,6 +23,20 @@ const createItem = async (req, res) => {
     }
 }
 
+const updateItem = async (req, res) => {
+    const body = matchedData(req)
+    const projects = await ProjectModel.find({userId: req.user._id})
+    const exists = projects.some(project => project._id.toString() === req.params.id)
+    if(!exists){
+        res.status(404).send("ERROR PROJECT NOT FOUND")
+    }
+    else{
+        const project = await ProjectModel.findByIdAndUpdate(req.params.id, body)
+        res.status(200).send(project)
+    }
+}
+
 module.exports = {
-    createItem
+    createItem,
+    updateItem
 }

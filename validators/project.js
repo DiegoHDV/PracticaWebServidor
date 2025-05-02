@@ -11,6 +11,15 @@ const validatorCreateItem = [
     }
 ]
 
+const validatorUpdateItem = [
+    check("name").optional().notEmpty(),
+    check("address").optional().notEmpty(),
+    (req, res, next) => {
+        return validateResults(req, res, next)
+    }
+]
+
 module.exports = {
-    validatorCreateItem
+    validatorCreateItem,
+    validatorUpdateItem
 }
