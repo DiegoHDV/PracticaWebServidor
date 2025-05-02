@@ -75,10 +75,27 @@ const deleteProject = async (req, res) => {
     }
 }
 
+const restoreProject = async (req, res) => {
+    try{
+        const data = await ProjectModel.restore({_id: req.params.id})
+        if(data.modifiedCount === 0){
+            res.status(404).send("ERROR PROJECT NOT FOUND")
+        }
+        else{
+            res.status(200).send(data)
+        }        
+    }catch(err){
+        if(req.params.id.length !== 24){
+            res.status(404).send("ERROR PROJECT NOT FOUND")
+        }
+    }
+}
+
 module.exports = {
     createItem,
     updateItem,
     getUserProjects,
     getProject,
-    deleteProject
+    deleteProject,
+    restoreProject
 }

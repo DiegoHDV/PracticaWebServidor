@@ -3,7 +3,7 @@ const projectRouter = express.Router()
 const app = express()
 const {authMiddleware} = require('../middleware/sessionJwt.js')
 const {validatorCreateItem, validatorUpdateItem, validatorDeleteProject} = require('../validators/project.js')
-const {createItem, updateItem, getUserProjects, getProject, deleteProject} = require('../controllers/project.js')
+const {createItem, updateItem, getUserProjects, getProject, deleteProject, restoreProject} = require('../controllers/project.js')
 
 app.use('/practica/project', projectRouter)
 
@@ -16,5 +16,7 @@ projectRouter.get('/', authMiddleware, getUserProjects)
 projectRouter.get('/:id', authMiddleware, getProject)
 
 projectRouter.delete('/deleteProject', authMiddleware, validatorDeleteProject, deleteProject)
+
+projectRouter.post('/restore/:id', authMiddleware, restoreProject)
 
 module.exports = projectRouter

@@ -184,7 +184,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxY
 # P  R  O  J  E  C  T  S
 ###
 POST http://localhost:3000/practica/project
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTgzMzMwLCJleHAiOjE3NDYxOTA1MzB9.vMDwcXH1sivK5H6mcUEABbZe06jY6uVJ6IMmR4j1bss
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTk4MzI0LCJleHAiOjE3NDYyMDU1MjR9.h9eOudznF4pJrAP5QHPBeV2wv9ojwMqbTI6p2ACsrmY
 Content-Type: application/json
 
 {
@@ -219,3 +219,7 @@ Content-Type: application/json
 {
     "projectCode": "123"
 }
+
+###
+POST http://localhost:3000/practica/project/restore/6814a50d2d464a6be0aaf2aa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTk4MzI0LCJleHAiOjE3NDYyMDU1MjR9.h9eOudznF4pJrAP5QHPBeV2wv9ojwMqbTI6p2ACsrmY
