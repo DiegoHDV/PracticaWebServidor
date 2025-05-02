@@ -33,6 +33,16 @@ Content-Type: application/json
 
 
 ###
+POST http://localhost:3000/practica/user/login
+Content-Type: application/json
+
+{
+    "email": "hola@gmail.com",
+    "password": "HolaMundo.01"
+}
+
+
+###
 PUT http://localhost:3000/practica/user/personalData
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U0MTIzMDViNmJlYWE3OTZhMDEzZWQiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDAwNDYyLCJleHAiOjE3NDMwMDc2NjJ9.BCkGKXJTrxeE_ap_w8QHSqM9XrLawGYE6AVYTkqp9Hc
 Content-Type: application/json
@@ -126,7 +136,7 @@ Content-Type: application/json
 # C  L  I  E  N  T  S
 ###
 POST http://localhost:3000/practica/client
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTE3MDAwLCJleHAiOjE3NDYxMjQyMDB9.GPkzCjka1DBy1TlLVMfTA628lkLBzs82fliKqN4DbIA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODA4YTM5MDg2NWRjY2Q0YWMzNmRiZTUiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTc2MTg0LCJleHAiOjE3NDYxODMzODR9.FGVQrOFpC7_11wYG3QVfNXqslyEMXqpYJxsihTQ7dOQ
 Content-Type: application/json
 
 {
