@@ -178,6 +178,27 @@ describe('get user projects', () => {
     })
 })
 
+describe('get project by id', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .get(`/practica/project/${projectCreatedA._id.toString()}`)
+            .expect(401)
+    })
+    test('should get an error PROJECT NOT FOUND', async () => {
+        const response = await request(app)
+            .get('/practica/project/12')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(404)
+    })
+    test('should get a project', async () => {
+        const response = await request(app)
+            .get(`/practica/project/${projectCreatedA._id.toString()}`)
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(200)
+        expect(response.body._id).toEqual(projectCreatedA._id.toString())
+    })
+})
+
 afterAll(async () => {
     server.close()
     await mongoose.connection.close()

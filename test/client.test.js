@@ -145,7 +145,7 @@ describe('get user clients', () => {
 describe('get client by id', () => {
     test('should get an error "NOT_SESSION"', async () => {
         const response = await request(app)
-            .get('/practica/client')
+            .get(`/practica/client/${clienteCreadoA._id.toString()}`)
             .expect(401)
     })
     test('should get an error CLIENT NOT FOUND', async () => {
@@ -154,7 +154,7 @@ describe('get client by id', () => {
             .auth(tokenUserPrueba, { type: 'bearer' })
             .expect(404)
     })
-    test('should get a user', async () => {
+    test('should get a client', async () => {
         const response = await request(app)
             .get(`/practica/client/${clienteCreadoA._id.toString()}`)
             .auth(tokenUserPrueba, { type: 'bearer' })
