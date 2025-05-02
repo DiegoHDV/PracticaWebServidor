@@ -133,10 +133,12 @@ Content-Type: application/json
 }
 
 
+
+#########################
 # C  L  I  E  N  T  S
 ###
 POST http://localhost:3000/practica/client
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODA4YTM5MDg2NWRjY2Q0YWMzNmRiZTUiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTc2MTg0LCJleHAiOjE3NDYxODMzODR9.FGVQrOFpC7_11wYG3QVfNXqslyEMXqpYJxsihTQ7dOQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTc2NzMxLCJleHAiOjE3NDYxODM5MzF9.J9e2tt9vgDw0iWxW7vTgUdY366nYLLveXJqlu0RyCWE
 Content-Type: application/json
 
 {
@@ -165,7 +167,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxY
 
 ###
 DELETE http://localhost:3000/practica/client/deleteClient?soft=true
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTE3MDAwLCJleHAiOjE3NDYxMjQyMDB9.GPkzCjka1DBy1TlLVMfTA628lkLBzs82fliKqN4DbIA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTc2NzMxLCJleHAiOjE3NDYxODM5MzF9.J9e2tt9vgDw0iWxW7vTgUdY366nYLLveXJqlu0RyCWE
 Content-Type: application/json
 
 {
@@ -175,3 +177,19 @@ Content-Type: application/json
 ###
 POST http://localhost:3000/practica/client/restore/6813a14567eb79f67d1ffa0c
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTE3MDAwLCJleHAiOjE3NDYxMjQyMDB9.GPkzCjka1DBy1TlLVMfTA628lkLBzs82fliKqN4DbIA
+
+
+
+###########################
+# P  R  O  J  E  C  T  S
+###
+POST http://localhost:3000/practica/project
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTgzMzMwLCJleHAiOjE3NDYxOTA1MzB9.vMDwcXH1sivK5H6mcUEABbZe06jY6uVJ6IMmR4j1bss
+Content-Type: application/json
+
+{
+    "clientId": "68148efa7ae09a0502a7a5e1",
+    "projectCode": "1234",
+    "name": "prueba",
+    "address": "Madrid"
+}
