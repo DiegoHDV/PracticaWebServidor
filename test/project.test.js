@@ -162,6 +162,22 @@ describe('update Client', () => {
     })
 })
 
+describe('get user projects', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .get('/practica/project')
+            .expect(401)
+    })
+    test('should get the projects of a user', async () => {
+        const response = await request(app)
+            .get('/practica/project')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(200)
+        expect(response.body.length).toEqual(1)
+        expect(response.body[0].userId).toEqual(userPruebaA._id.toString())
+    })
+})
+
 afterAll(async () => {
     server.close()
     await mongoose.connection.close()
