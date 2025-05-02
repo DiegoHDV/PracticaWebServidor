@@ -206,3 +206,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/practica/project
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTk4MzI0LCJleHAiOjE3NDYyMDU1MjR9.h9eOudznF4pJrAP5QHPBeV2wv9ojwMqbTI6p2ACsrmY
+
+###
+GET http://localhost:3000/practica/project/6814a50d2d464a6be0aaf2aa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTk4MzI0LCJleHAiOjE3NDYyMDU1MjR9.h9eOudznF4pJrAP5QHPBeV2wv9ojwMqbTI6p2ACsrmY
