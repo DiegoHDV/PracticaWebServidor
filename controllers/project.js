@@ -36,7 +36,13 @@ const updateItem = async (req, res) => {
     }
 }
 
+const getUserProjects = async (req, res) => {
+    const userProjects = await ProjectModel.find({userId: req.user._id})
+    res.status(200).send(userProjects)
+}
+
 module.exports = {
     createItem,
-    updateItem
+    updateItem,
+    getUserProjects
 }

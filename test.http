@@ -202,3 +202,7 @@ Content-Type: application/json
 {
     "name": "modificado"
 }
+
+###
+GET http://localhost:3000/practica/project
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTk4MzI0LCJleHAiOjE3NDYyMDU1MjR9.h9eOudznF4pJrAP5QHPBeV2wv9ojwMqbTI6p2ACsrmY
