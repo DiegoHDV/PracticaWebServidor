@@ -56,6 +56,13 @@ var projectCreated = {
     "address": "Madrid"
 }
 
+var projectDeleted = {
+    "clientId": "",
+    "projectCode": "12344",
+    "name": "prueba",
+    "address": "Madrid"
+}
+
 beforeAll(async () => {
     await new Promise((resolve) => mongoose.connection.once('connected', resolve));
 
@@ -80,6 +87,11 @@ beforeEach(async () => {
     projectCreated.clientId = clienteCreadoA._id.toString()
     projectCreated.userId = userPruebaA._id.toString()
     projectCreatedA = await ProjectModel.create(projectCreated)
+
+    projectDeleted.clientId = clienteCreadoA._id.toString()
+    projectDeleted.userId = userPruebaA._id.toString()
+    projectDeletedA = await ProjectModel.create(projectDeleted)
+    await ProjectModel.delete({_id: projectDeletedA._id})
 
     projectPrueba.clientId = clienteCreadoA._id.toString()
 })
@@ -196,6 +208,67 @@ describe('get project by id', () => {
             .auth(tokenUserPrueba, { type: 'bearer' })
             .expect(200)
         expect(response.body._id).toEqual(projectCreatedA._id.toString())
+    })
+})
+
+describe('delete soft and hard a project', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .delete('/practica/project/deleteProject?soft=true')
+            .expect(401)
+    })
+    test('should get an error due to lack of data', async () => {
+        const response1 = await request(app)
+            .delete('/practica/project/deleteProject')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "projectCode": projectCreated.projectCode
+            })
+            .set('Accept', 'application/json')
+            .expect(403)
+        const response2 = await request(app)
+            .delete('/practica/project/deleteProject?soft=true')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .set('Accept', 'application/json')
+            .expect(403)
+    })
+    test('should get error PROJECT NOT FOUND', async () => {
+        const response = await request(app)
+            .delete('/practica/project/deleteProject?soft=true')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "projectCode": "122222"
+            })
+            .set('Accept', 'application/json')
+            .expect(404)
+        const response2 = await request(app)
+            .delete('/practica/project/deleteProject?soft=true')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "projectCode": projectDeleted.projectCode
+            })
+            .set('Accept', 'application/json')
+            .expect(404)
+    })
+    test('should delete soft a project', async () => {
+        const response = await request(app)
+            .delete('/practica/project/deleteProject?soft=true')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "projectCode": projectCreated.projectCode
+            })
+            .set('Accept', 'application/json')
+            .expect(200)
+    })
+    test('should delete hard a project', async () => {
+        const response = await request(app)
+            .delete('/practica/project/deleteProject?soft=false')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "projectCode": projectCreated.projectCode
+            })
+            .set('Accept', 'application/json')
+            .expect(200)
     })
 })
 
