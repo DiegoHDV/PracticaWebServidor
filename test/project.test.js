@@ -131,6 +131,37 @@ describe('post Project', () => {
     })
 })
 
+describe('update Client', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .patch(`/practica/project/${projectCreatedA._id.toString()}`)
+            .send(projectPrueba)
+            .set('Accept', 'application/json')
+            .expect(401)
+    })
+    test('should get an error PROJECT NOT FOUND', async () =>{
+        const response = await request(app)
+            .patch('/practica/project/12')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "name": "no Existe"
+            })
+            .set('Accept', 'application/json')
+            .expect(404)
+    })
+    test('should update a project', async () => {
+        const modificacion = 'modificado'
+        const response = await request(app)
+            .patch(`/practica/project/${projectCreatedA._id.toString()}`)
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "name": modificacion
+            })
+            .set('Accept', 'application/json')
+            .expect(200)
+    })
+})
+
 afterAll(async () => {
     server.close()
     await mongoose.connection.close()
