@@ -272,6 +272,31 @@ describe('delete soft and hard a project', () => {
     })
 })
 
+describe('restore a project', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .post(`/practica/project/restore/${projectDeletedA._id.toString()}`)
+            .expect(401)
+    })
+    test('should get an error PROJECT NOT FOUND', async () => {
+        const response1 = await request(app)
+            .post("/practica/project/restore/123456789012345678901234")
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(404)
+        const response2 = await request(app)
+            .post("/practica/project/restore/1")
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(404)
+    })
+    test('should restore a project', async () => {
+        const response = await request(app)
+            .post(`/practica/project/restore/${projectDeletedA._id.toString()}`)
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(200)
+        expect(response.body.modifiedCount).toEqual(1)
+    })
+})
+
 afterAll(async () => {
     server.close()
     await mongoose.connection.close()
