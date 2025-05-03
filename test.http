@@ -230,7 +230,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxY
 # D  E  L  I  V  E  R  Y  N  O  T  E
 ###
 POST http://localhost:3000/practica/deliverynote
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MjgzNDg0LCJleHAiOjE3NDYyOTA2ODR9.9H4eDHrJvUzrXZf04PJpo0JLgJgpRQNrufMO-Zqbi-U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MjkxMDU2LCJleHAiOjE3NDYyOTgyNTZ9.kEEeYc83SADVaFoYNXkS7OkaFOvxN936UC3gsFXavs8
 Content-Type: application/json
 
 {

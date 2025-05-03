@@ -143,7 +143,7 @@ describe('post Project', () => {
     })
 })
 
-describe('update Client', () => {
+describe('update Project', () => {
     test('should get an error "NOT_SESSION"', async () => {
         const response = await request(app)
             .patch(`/practica/project/${projectCreatedA._id.toString()}`)
