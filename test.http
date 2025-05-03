@@ -223,3 +223,25 @@ Content-Type: application/json
 ###
 POST http://localhost:3000/practica/project/restore/6814a50d2d464a6be0aaf2aa
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTk4MzI0LCJleHAiOjE3NDYyMDU1MjR9.h9eOudznF4pJrAP5QHPBeV2wv9ojwMqbTI6p2ACsrmY
+
+
+
+#######################################
+# D  E  L  I  V  E  R  Y  N  O  T  E
+###
+POST http://localhost:3000/practica/deliverynote
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MjgzNDg0LCJleHAiOjE3NDYyOTA2ODR9.9H4eDHrJvUzrXZf04PJpo0JLgJgpRQNrufMO-Zqbi-U
+Content-Type: application/json
+
+{
+    "clientId": "68148efa7ae09a0502a7a5e1",
+    "projectId": "6814a50d2d464a6be0aaf2aa",
+    "name": "prueba",
+    "format": "hours",
+    "hours": [
+        {
+            "description": "hola",
+            "quantity": 4
+        }
+    ]
+}
