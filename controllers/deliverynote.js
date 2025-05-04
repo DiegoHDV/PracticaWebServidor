@@ -31,6 +31,12 @@ const createItem = async (req, res) => {
     
 }
 
+const getDeliverynotes = async (req, res) => {
+    const userDeliverynotes = await DeliverynoteModel.find({userId: req.user._id})
+    res.status(200).send(userDeliverynotes)
+}
+
 module.exports = {
-    createItem
+    createItem,
+    getDeliverynotes
 }

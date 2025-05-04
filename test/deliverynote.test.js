@@ -445,6 +445,22 @@ describe('post deliverynote', () => {
     })
 })
 
+describe('get deliverynotes', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await api
+            .post('/practica/deliverynote')
+            .send(projectCreated)
+            .set('Accept', 'application/json')
+            .expect(401)
+    })
+    test('should get the deliverynotes of a user', async () => {
+        const response = await request(app)
+            .get('/practica/deliverynote')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(200)
+    })
+})
+
 afterAll(async () => {
     server.close()
     await mongoose.connection.close()
