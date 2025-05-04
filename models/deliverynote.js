@@ -2,9 +2,18 @@ const mongoose = require('mongoose')
 
 const DeliverynoteScheme = new mongoose.Schema(
     {
-        userId: mongoose.Types.ObjectId,
-        clientId: mongoose.Types.ObjectId,
-        projectId: mongoose.Types.ObjectId,
+        userId: {
+            type: mongoose.Types.ObjectId, 
+            ref: 'users'
+        },
+        clientId: {
+            type: mongoose.Types.ObjectId, 
+            ref: 'clients'
+        },
+        projectId: {
+            type: mongoose.Types.ObjectId, 
+            ref: 'projects'
+        },
         name: String,
         description: String,
         format: {

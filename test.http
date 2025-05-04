@@ -255,3 +255,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/practica/deliverynote
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MzU1Mzg4LCJleHAiOjE3NDYzNjI1ODh9.Hr7j-NlWa2uqdExClLaHvPbRfL2iuJqnxV3fT9-nNWI
+
+###
+GET http://localhost:3000/practica/deliverynote/68164c0a2f8ddab8500ca529
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MzU1Mzg4LCJleHAiOjE3NDYzNjI1ODh9.Hr7j-NlWa2uqdExClLaHvPbRfL2iuJqnxV3fT9-nNWI

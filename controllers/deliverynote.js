@@ -36,7 +36,23 @@ const getDeliverynotes = async (req, res) => {
     res.status(200).send(userDeliverynotes)
 }
 
+const getOneDeliverynote = async (req, res) => {
+    const id = req.params.id
+    const data = await DeliverynoteModel.findById(id)
+        .populate('userId')
+        .populate('clientId')
+        .populate('projectId')
+    if(data == null){
+        res.status(404).send("ERROR DELIVERYNOTE NOT FOUND")
+    }
+    else{
+        res.status(200).send(data)
+    }
+    
+}
+
 module.exports = {
     createItem,
-    getDeliverynotes
+    getDeliverynotes,
+    getOneDeliverynote
 }
