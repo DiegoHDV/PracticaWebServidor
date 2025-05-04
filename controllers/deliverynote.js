@@ -2,6 +2,8 @@ const DeliverynoteModel = require('../models/deliverynote.js')
 const { matchedData } = require('express-validator')
 const ClientModel = require('../models/client.js')
 const ProjectModel = require('../models/project.js')
+const PDFDocument = require('pdfkit')
+const { uploadToPinata } = require("../utils/handleUploadIPFS.js")
 
 const createItem = async (req, res) => {
     const body = matchedData(req)
@@ -51,8 +53,64 @@ const getOneDeliverynote = async (req, res) => {
     
 }
 
+const getPDF = async (req, res) => {
+    const id = req.params.id
+    
+    const deliverynote = await DeliverynoteModel.findById(id)
+        .populate('userId')
+        .populate('clientId')
+        .populate('projectId')
+
+    if(deliverynote == null){
+        res.status(404).send("ERROR DELIVERYNOTE NOT FOUND")
+    }
+    else{
+        res.setHeader('Content-Disposition', `attachment; filename=deliverynote_${id}.pdf`)
+        res.setHeader('Content-Type', 'application/pdf')
+        const doc = new PDFDocument()
+        const buffer = []
+        doc.on('data', buff => buffer.push(buff))
+        doc.pipe(res)
+        doc.text(`Productor: ${deliverynote.userId.name}`)
+        doc.text(`Cliente: ${deliverynote.clientId.name}; CIF: ${deliverynote.clientId.cif}`)
+        doc.text(`Proyecto: ${deliverynote.projectId.name}; Dirección: ${deliverynote.projectId.address}`)
+        doc.text(`Formato: ${deliverynote.format}`)
+        if(deliverynote.hours.length !== 0){
+            doc.text('Horas:')
+            for(item of deliverynote.hours){
+                doc.text(`${item.description}: ${item.quantity}`)
+            }
+        }
+        if(deliverynote.material.length !== 0){
+            doc.text('Materiales:')
+            for(item of deliverynote.material){
+                doc.text(`${item.description}: ${item.quantity}`)
+            }
+        }
+        if(deliverynote.sign != null){
+            doc.text("Firma: ")
+        }
+        doc.on('end', async () => {
+            const bufferPDF = Buffer.concat(buffer)
+            try {
+                const pinataResponse = await uploadToPinata(bufferPDF, `deliverynote_${deliverynote._id.toString()}.pdf`)
+                const ipfsFile = pinataResponse.IpfsHash
+                const ipfs = `https://${process.env.PINATA_GATEWAY_URL}/ipfs/${ipfsFile}`
+                const data = await DeliverynoteModel.findByIdAndUpdate({ _id: id }, { pdf: ipfs })
+                console.log(data)
+            } catch (err) {
+                console.log(err)
+                res.status(500).send("ERROR_UPLOAD_COMPANY_IMAGE")
+            }
+        })
+        doc.end()
+        
+    }
+}
+
 module.exports = {
     createItem,
     getDeliverynotes,
-    getOneDeliverynote
+    getOneDeliverynote,
+    getPDF
 }
