@@ -500,6 +500,26 @@ describe('get deliverynote by id', () => {
     })
 })
 
+describe('get deliverynote pdf by id', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .get(`/practica/deliverynote/pdf/${deliverynoteCreatedA._id.toString()}`)
+            .expect(401)
+    })
+    test('should get an error DELIVERYNOTE NOT FOUND', async () => {
+        const response = await request(app)
+            .get('/practica/deliverynote/pdf/012345678901234567891234')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(404)
+    })
+    test('should get a deliverynote pdf', async () => {
+        const response = await request(app)
+            .get(`/practica/deliverynote/pdf/${deliverynoteCreatedA._id.toString()}`)
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(200)
+    })
+})
+
 afterAll(async () => {
     server.close()
     await mongoose.connection.close()

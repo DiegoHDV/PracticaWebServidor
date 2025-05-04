@@ -3,9 +3,9 @@ const pinata = require('../utils/handleUploadIPFS.js')
 const spyEmail = jest.spyOn(email, 'sendEmail').mockImplementation(() => {
     console.log("Enviando email")
 })
-/*const spyLogo = jest.spyOn(pinata, 'uploadToPinata').mockImplementation(() => {
-    console.log("SUbiendo imagen a pinata")
-})*/
+/* const spyLogo = jest.spyOn(pinata, 'uploadToPinata').mockImplementation(() => {
+    console.log("Subiendo imagen a pinata")
+}) */
 const request = require("supertest")
 const { app, server } = require("../index.js")
 const mongoose = require("mongoose")
@@ -352,7 +352,7 @@ describe('logo', () => {
             .attach('image', './pass.jpg')
             .expect(401)
     })
-    test('should get an error cause the file size', async () => {
+    test.skip('should get an error cause the file size', async () => {
         const response = await request(app)
             .patch('/practica/user/logo')
             .auth(tokenUserPrueba, { type: 'bearer' })

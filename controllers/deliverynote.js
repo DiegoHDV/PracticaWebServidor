@@ -100,7 +100,6 @@ const getPDF = async (req, res) => {
                 console.log(data)
             } catch (err) {
                 console.log(err)
-                res.status(500).send("ERROR_UPLOAD_COMPANY_IMAGE")
             }
         })
         doc.end()
