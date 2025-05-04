@@ -103,7 +103,30 @@ const getPDF = async (req, res) => {
             }
         })
         doc.end()
-        
+    }
+}
+
+const firmarDeliverynote = async (req, res) => {
+    const id = req.params.id
+    const deliverynote = await DeliverynoteModel.findById(id)
+
+    if(deliverynote == null){
+        res.status(404).send("ERROR DELIVERYNOTE NOT FOUND")
+    }
+    else{
+        try {
+            const fileBuffer = req.file.buffer
+            const fileName = req.file.originalname
+            const pinataResponse = await uploadToPinata(fileBuffer, fileName)
+            const ipfsFile = pinataResponse.IpfsHash
+            const ipfs = `https://${process.env.PINATA_GATEWAY_URL}/ipfs/${ipfsFile}`
+    
+            const data = await DeliverynoteModel.findByIdAndUpdate({ _id: id }, { sign: ipfs })
+            res.send(data)
+        } catch (err) {
+            console.log(err)
+            res.status(500).send("ERROR_UPLOAD_COMPANY_IMAGE")
+        }
     }
 }
 
@@ -111,5 +134,6 @@ module.exports = {
     createItem,
     getDeliverynotes,
     getOneDeliverynote,
-    getPDF
+    getPDF,
+    firmarDeliverynote
 }
