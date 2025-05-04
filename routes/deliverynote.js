@@ -1,6 +1,6 @@
 const express = require('express')
 const deliverynoteRouter = express.Router()
-const {createItem, getDeliverynotes, getOneDeliverynote, getPDF, firmarDeliverynote} = require('../controllers/deliverynote.js')
+const {createItem, getDeliverynotes, getOneDeliverynote, getPDF, firmarDeliverynote, deleteDeliverynote} = require('../controllers/deliverynote.js')
 const {validatorCreateItem} = require('../validators/deliverynote.js')
 const {authMiddleware} = require('../middleware/sessionJwt.js')
 const {verifyFormat} = require('../utils/handleFormat.js')
@@ -19,5 +19,7 @@ deliverynoteRouter.get('/:id', authMiddleware, getOneDeliverynote)
 deliverynoteRouter.get('/pdf/:id', authMiddleware, getPDF)
 
 deliverynoteRouter.patch('/firmar/:id', authMiddleware, uploadMiddlewareMemory.single("image"), firmarDeliverynote)
+
+deliverynoteRouter.delete('/:id', authMiddleware, deleteDeliverynote)
 
 module.exports = deliverynoteRouter

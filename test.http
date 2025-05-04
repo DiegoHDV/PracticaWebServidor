@@ -230,7 +230,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxY
 # D  E  L  I  V  E  R  Y  N  O  T  E
 ###
 POST http://localhost:3000/practica/deliverynote
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MzU1Mzg4LCJleHAiOjE3NDYzNjI1ODh9.Hr7j-NlWa2uqdExClLaHvPbRfL2iuJqnxV3fT9-nNWI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MzgwNTEwLCJleHAiOjE3NDYzODc3MTB9.qt0S7gByRn5XdRFuLSheU9kK3vSsH2Y8mLXc6bI57TM
 Content-Type: application/json
 
 {
@@ -265,8 +265,8 @@ GET http://localhost:3000/practica/deliverynote/pdf/68164c0a2f8ddab8500ca529
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MzcxOTQwLCJleHAiOjE3NDYzNzkxNDB9.LVORZy8481hRm3nWaHuXHZc42dzeXYPG0xiZw3CX2ng
 
 ###
-PATCH http://localhost:3000/practica/deliverynote/firmar/68164c0a2f8ddab8500ca529
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MzcxOTQwLCJleHAiOjE3NDYzNzkxNDB9.LVORZy8481hRm3nWaHuXHZc42dzeXYPG0xiZw3CX2ng
+PATCH http://localhost:3000/practica/deliverynote/firmar/681653dab3544772435797b4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MzgwNTEwLCJleHAiOjE3NDYzODc3MTB9.qt0S7gByRn5XdRFuLSheU9kK3vSsH2Y8mLXc6bI57TM
 Content-Type: multipart/form-data; boundary=boundary123
 
 --boundary123
@@ -275,3 +275,7 @@ Content-Type: image/jpeg
 
 < ./firma.jpg
 --boundary123--
+
+###
+DELETE http://localhost:3000/practica/deliverynote/6817a7b42bb8a23190d4ef90
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MzgwNTEwLCJleHAiOjE3NDYzODc3MTB9.qt0S7gByRn5XdRFuLSheU9kK3vSsH2Y8mLXc6bI57TM

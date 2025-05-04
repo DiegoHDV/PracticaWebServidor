@@ -134,10 +134,28 @@ const firmarDeliverynote = async (req, res) => {
     }
 }
 
+const deleteDeliverynote = async (req, res) => {
+    const id = req.params.id
+    const deliverynote = await DeliverynoteModel.findById(id)
+    if(deliverynote == null){
+        res.status(404).send("ERROR DELIVERYNOTE NOT FOUND")
+    }
+    else{
+        if(deliverynote.sign !== ""){
+            res.status(401).send("ERROR DELIVERYNOTE ALREADY SIGNED")
+        }
+        else{
+            await DeliverynoteModel.findByIdAndDelete(id)
+            res.status(200).send("DELIVERYNOTE DELETED")
+        }
+    }
+}
+
 module.exports = {
     createItem,
     getDeliverynotes,
     getOneDeliverynote,
     getPDF,
-    firmarDeliverynote
+    firmarDeliverynote,
+    deleteDeliverynote
 }
