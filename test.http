@@ -245,3 +245,22 @@ Content-Type: application/json
         }
     ]
 }
+
+{
+    "clientId": "68148efa7ae09a0502a7a5e1",
+    "projectId": "6814a50d2d464a6be0aaf2aa",
+    "name": "prueba",
+    "format": "any",
+    "hours": [
+        {
+            "description": "prueba",
+            "quantity": 4
+        }
+    ],
+    "material": [
+        {
+            "description": "prueba",
+            "quantity": 4
+        }
+    ]
+}

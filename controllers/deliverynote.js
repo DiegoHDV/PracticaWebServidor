@@ -25,7 +25,7 @@ const createItem = async (req, res) => {
         else{
             // En caso de existir, creamos el albarán
             const data = await DeliverynoteModel.create(body)
-            res.send(data)
+            res.status(201).send(data)
         }
     }
     

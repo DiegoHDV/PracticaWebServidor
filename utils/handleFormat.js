@@ -26,14 +26,8 @@ const allData = (any) => {
 const verifyFormat = async (req, res, next) => {
     
     const {format, hours, material} = req.body
-    console.log("Format")
-    console.log(format)
+
     if(format === "hours"){
-        console.log("------------------------")
-        console.log("Hours")
-        console.log(Array.isArray(hours))
-        console.log(hours)
-        console.log(material == null)
         if(Array.isArray(hours) && hours.length !== 0 && material == null){
             if(incorrectData(hours) > 0){
                 handleHttpError(res, "INVALID DATA", 401)
@@ -43,7 +37,6 @@ const verifyFormat = async (req, res, next) => {
                 handleHttpError(res, "ERROR FORBIDDEN", 403)
                 return
             }
-            next()
         }
         else{
             handleHttpError(res, "ERROR FORBIDDEN", 403)
@@ -51,10 +44,6 @@ const verifyFormat = async (req, res, next) => {
         }
     }
     else if(format === "material"){
-        console.log("------------------------")
-        console.log("Material")
-        console.log(Array.isArray(material))
-        console.log(material)
         if(Array.isArray(material) && material.length !== 0 && hours == null){
             if(incorrectData(material) > 0){
                 handleHttpError(res, "INVALID DATA", 401)
@@ -64,7 +53,6 @@ const verifyFormat = async (req, res, next) => {
                 handleHttpError(res, "ERROR FORBIDDEN", 403)
                 return
             }
-            next()
         }
         else{
             handleHttpError(res, "ERROR FORBIDDEN", 403)
@@ -72,14 +60,6 @@ const verifyFormat = async (req, res, next) => {
         }
     }
     else{
-        console.log("------------------------")
-        console.log("Hours")
-        console.log(Array.isArray(hours))
-        console.log(hours)
-        console.log("------------------------")
-        console.log("Material")
-        console.log(Array.isArray(material))
-        console.log(material)
         if((Array.isArray(hours) && hours.length !== 0) && (Array.isArray(material) && material.length !== 0)){
             if(incorrectData(hours) > 0 || incorrectData(material) > 0){
                 handleHttpError(res, "INVALID DATA", 401)
@@ -89,7 +69,6 @@ const verifyFormat = async (req, res, next) => {
                 handleHttpError(res, "ERROR FORBIDDEN", 403)
                 return
             }
-            next()
         }
         else if(Array.isArray(hours) && hours.length !== 0){
             if(incorrectData(hours) > 0){
@@ -100,7 +79,6 @@ const verifyFormat = async (req, res, next) => {
                 handleHttpError(res, "ERROR FORBIDDEN", 403)
                 return
             }
-            next()
         }
         else if(Array.isArray(material) && material.length !== 0){
             if(incorrectData(material) > 0){
@@ -111,10 +89,9 @@ const verifyFormat = async (req, res, next) => {
                 handleHttpError(res, "ERROR FORBIDDEN", 403)
                 return
             }
-            next()
         }
-        next()
     }
+    next()
 }
 
 
