@@ -39,6 +39,19 @@ var projectCreated = {
     "address": "Madrid"
 }
 
+var deliverynoteCreated = {
+    "clientId": "",
+    "projectId": "",
+    "name": "prueba",
+    "format": "hours",
+    "hours": [
+        {
+            "description": "prueba",
+            "quantity": 4
+        }
+    ]
+}
+
 beforeAll(async () => {
     await new Promise((resolve) => mongoose.connection.once('connected', resolve));
 
@@ -61,6 +74,10 @@ beforeEach(async () => {
     projectCreated.userId = userPruebaA._id.toString()
     projectCreatedA = await ProjectModel.create(projectCreated)
 
+    deliverynoteCreated.projectId = projectCreatedA._id.toString()
+    deliverynoteCreated.clientId = clienteCreadoA._id.toString()
+    deliverynoteCreated.userId = userPruebaA._id.toString()
+    deliverynoteCreatedA = await DeliverynoteModel.create(deliverynoteCreated)
 })
 
 describe('post deliverynote', () => {
@@ -458,6 +475,28 @@ describe('get deliverynotes', () => {
             .get('/practica/deliverynote')
             .auth(tokenUserPrueba, { type: 'bearer' })
             .expect(200)
+    })
+})
+
+describe('get deliverynote by id', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .get(`/practica/deliverynote/${deliverynoteCreatedA._id.toString()}`)
+            .expect(401)
+    })
+    test('should get an error DELIVERYNOTE NOT FOUND', async () => {
+        const response = await request(app)
+            .get('/practica/project/12')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(404)
+    })
+    test('should get a deliverynote', async () => {
+        const response = await request(app)
+            .get(`/practica/deliverynote/${deliverynoteCreatedA._id.toString()}`)
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(200)
+        expect(response.body._id).toEqual(deliverynoteCreatedA._id.toString())
+        expect(response.body.userId._id).toEqual(deliverynoteCreatedA.userId.toString())
     })
 })
 
