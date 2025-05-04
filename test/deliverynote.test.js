@@ -541,6 +541,37 @@ describe('patch deliverynote signature by id', () => {
     })
 })
 
+describe('delete deliverynote', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .delete(`/practica/deliverynote/${deliverynoteCreatedA._id.toString()}`)
+            .expect(401)
+    })
+    test('should get an error DELIVERYNOTE NOT FOUND', async () => {
+        const response = await request(app)
+            .delete('/practica/deliverynote/012345678901234567891234')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(404)
+    })
+    test('should get an error DELIVERYNOTE ALREADY SIGNED', async () => {
+        const response1 = await request(app)
+            .patch(`/practica/deliverynote/firmar/${deliverynoteCreatedA._id.toString()}`)
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .attach('image', './firma.jpg')
+            .expect(200)
+        const response2 = await request(app)
+            .delete(`/practica/deliverynote/${deliverynoteCreatedA._id.toString()}`)
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(401)
+    })
+    test('should delete a deliverynote', async () => {
+        const response = await request(app)
+            .delete(`/practica/deliverynote/${deliverynoteCreatedA._id.toString()}`)
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(200)
+    })
+})
+
 afterAll(async () => {
     server.close()
     await mongoose.connection.close()
