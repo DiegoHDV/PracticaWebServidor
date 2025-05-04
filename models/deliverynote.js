@@ -45,7 +45,10 @@ const DeliverynoteScheme = new mongoose.Schema(
             }
         ],
         pdf: String,
-        sign: String
+        sign: {
+            type: String,
+            default: ""
+        }
     },
     {
         timestamps: true,

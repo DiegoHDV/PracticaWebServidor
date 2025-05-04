@@ -520,6 +520,27 @@ describe('get deliverynote pdf by id', () => {
     })
 })
 
+describe('patch deliverynote signature by id', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .patch(`/practica/deliverynote/firmar/${deliverynoteCreatedA._id.toString()}`)
+            .expect(401)
+    })
+    test('should get an error DELIVERYNOTE NOT FOUND', async () => {
+        const response = await request(app)
+            .patch('/practica/deliverynote/firmar/012345678901234567891234')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(404)
+    })
+    test('should patch a deliverynote signature', async () => {
+        const response = await request(app)
+            .patch(`/practica/deliverynote/firmar/${deliverynoteCreatedA._id.toString()}`)
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .attach('image', './firma.jpg')
+            .expect(200)
+    })
+})
+
 afterAll(async () => {
     server.close()
     await mongoose.connection.close()

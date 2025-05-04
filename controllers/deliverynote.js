@@ -88,7 +88,7 @@ const getPDF = async (req, res) => {
                 doc.text(`${item.description}: ${item.quantity}`)
             }
         }
-        if(deliverynote.sign !== null){
+        if(deliverynote.sign !== ""){
             doc.text("Firma: ")
             const firma = await fetch(deliverynote.sign)
             const bufferFirma = await firma.buffer()
@@ -126,7 +126,7 @@ const firmarDeliverynote = async (req, res) => {
             const ipfs = `https://${process.env.PINATA_GATEWAY_URL}/ipfs/${ipfsFile}`
     
             const data = await DeliverynoteModel.findByIdAndUpdate({ _id: id }, { sign: ipfs })
-            res.send(data)
+            res.status(200).send(data)
         } catch (err) {
             console.log(err)
             res.status(500).send("ERROR_UPLOAD_COMPANY_IMAGE")
