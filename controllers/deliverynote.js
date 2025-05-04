@@ -4,6 +4,7 @@ const ClientModel = require('../models/client.js')
 const ProjectModel = require('../models/project.js')
 const PDFDocument = require('pdfkit')
 const { uploadToPinata } = require("../utils/handleUploadIPFS.js")
+const fetch = require('node-fetch')
 
 const createItem = async (req, res) => {
     const body = matchedData(req)
@@ -87,8 +88,11 @@ const getPDF = async (req, res) => {
                 doc.text(`${item.description}: ${item.quantity}`)
             }
         }
-        if(deliverynote.sign != null){
+        if(deliverynote.sign !== null){
             doc.text("Firma: ")
+            const firma = await fetch(deliverynote.sign)
+            const bufferFirma = await firma.buffer()
+            doc.image(bufferFirma, {width: 256, height: 256})
         }
         doc.on('end', async () => {
             const bufferPDF = Buffer.concat(buffer)
