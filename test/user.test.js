@@ -608,6 +608,60 @@ describe('recuperar contraseña 3º petición', () => {
     })
 })
 
+describe('invite partners', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .post('/practica/user/invitarGente')
+            .send({
+                "partners": ["email1@gmail.com", "email2@gmail.com", "email3@gmail.com"]
+            })
+            .set('Accept', 'application/json')
+            .expect(401)
+    })
+    test('should get an error due to lack of data', async () => {
+        const response1 = await request(app)
+            .post('/practica/user/invitarGente')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "partners": []
+            })
+            .set('Accept', 'application/json')
+            .expect(403)
+        const response2 = await request(app)
+            .post('/practica/user/invitarGente')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "partners": ["hola"]
+            })
+            .set('Accept', 'application/json')
+            .expect(403)
+    })
+    test('should get an error "ERROR_USER_NOT_FOUND"', async () => {
+        const response = await request(app)
+            .post('/practica/user/invitarGente')
+            .auth(tokenUserDeleted, { type: 'bearer' })
+            .send({
+                "partners": ["email1@gmail.com", "email2@gmail.com", "email3@gmail.com"]
+            })
+            .set('Accept', 'application/json')
+            .expect(404)
+    })
+    test('should change the personalData', async () => {
+        partners = ["email1@gmail.com", "email2@gmail.com", "email3@gmail.com"]
+        const response = await request(app)
+            .post('/practica/user/invitarGente')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "partners": partners
+            })
+            .set('Accept', 'application/json')
+            .expect(200)
+        for(i in response.body.length){
+            expect(response.body[i].email).toEqual(partners[i])
+        }
+    })
+})
+
 afterAll(async () => {
     server.close()
     await mongoose.connection.close()
