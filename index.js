@@ -1,8 +1,18 @@
 const express = require('express')
 const cors = require('cors')
+const morganBody = require("morgan-body")
 require('dotenv').config()
+const loggerStream = require("./utils/handleLogger.js")
 
 const app = express()
+
+morganBody(app, {
+    noColors: true,
+    skip: function (req, res) {
+        return res.statusCode < 500
+    },
+    stream: loggerStream
+})
 
 app.use(express.json())
 app.use(cors())
