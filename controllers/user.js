@@ -77,7 +77,7 @@ const login = async (req, res) => {
     const body = matchedData(req)
     const user = await UserModel.findOne({ email: body.email })
 
-    if (user == null || user.deleted) {
+    if (user == null) {
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else {
@@ -112,7 +112,7 @@ const login = async (req, res) => {
 }
 
 const uploadImage = async (req, res) => {
-    if(req.user.deleted){
+    if(req.user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -135,7 +135,7 @@ const uploadImage = async (req, res) => {
 
 const uploadPersonalData = async (req, res) => {
     const personalData = matchedData(req)
-    if(req.user.deleted){
+    if(req.user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -155,7 +155,7 @@ const uploadPersonalData = async (req, res) => {
 
 const uploadCompanyData = async (req, res) => {
     const company = matchedData(req)
-    if(req.user.deleted){
+    if(req.user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -167,7 +167,8 @@ const uploadCompanyData = async (req, res) => {
 }
 
 const getUser = async (req, res) => {
-    if(req.user.deleted){
+    console.log("GET USER: ", req.user)
+    if(req.user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -179,7 +180,7 @@ const getUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     const soft = matchedData(req).soft
-    if(req.user.deleted){
+    if(req.user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -198,7 +199,7 @@ const deleteUser = async (req, res) => {
 }
 
 const verificationCode = async (req, res) => {
-    if(req.user.deleted){
+    if(req.user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -221,7 +222,7 @@ const verificationCode = async (req, res) => {
 
 const verifyVerificationCode = async (req, res) => {
     const body = matchedData(req)
-    if(req.user.deleted){
+    if(req.user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -255,7 +256,7 @@ const verifyVerificationCode = async (req, res) => {
 
 const updatePassword = async (req, res) => {
     const body = matchedData(req)
-    if(req.user.deleted){
+    if(req.user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
@@ -274,7 +275,7 @@ const updatePassword = async (req, res) => {
 
 const invitePartners = async (req, res) => {
     const partners = matchedData(req).partners
-    if(req.user.deleted){
+    if(req.user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{

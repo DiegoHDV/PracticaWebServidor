@@ -369,6 +369,25 @@ describe('logo', () => {
     })
 })
 
+describe('get user', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .get('/practica/user/getUser')
+            .expect(401)
+    })
+    test('should get an error USER NOT FOUND', async () => {
+        const response = await request(app)
+            .get('/practica/user/getUser')
+            .auth(tokenUserDeleted, { type: 'bearer' })
+            .expect(404)
+    })
+    test('should get the user', async () => {
+        const response = await request(app)
+            .get('/practica/user/getUser')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(200)
+    })
+})
 
 afterAll(async () => {
     server.close()
