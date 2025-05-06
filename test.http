@@ -96,8 +96,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U0MTIzM
 
 
 ###
-DELETE http://localhost:3000/practica/user/deleteUser?soft=false
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODA4YTM5MDg2NWRjY2Q0YWMzNmRiZTUiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2NTQ4NTc1LCJleHAiOjE3NDY1NTU3NzV9.bLesu3C57g5nHyJuNV9MFakdDQ2AI9WvC7dqa7qUSx8
+DELETE http://localhost:3000/practica/user/deleteUser?soft=true
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODFhMzZmYmQwMWQzZjc1ODlhMGY3ZWMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2NTUwMjE5LCJleHAiOjE3NDY1NTc0MTl9.im63UmnRWd0wvWN0qwZ_Asa9q9ZB9XBHAPZowgt6HII
 
 
 

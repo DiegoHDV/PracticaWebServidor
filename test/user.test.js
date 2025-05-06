@@ -389,6 +389,38 @@ describe('get user', () => {
     })
 })
 
+describe('delete user soft and hard', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .delete('/practica/user/deleteUser?soft=false')
+            .expect(401)
+    })
+    test('should get an error due to lack of data', async () => {
+        const response = await request(app)
+            .delete('/practica/user/deleteUser')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(403)
+    })
+    test('should get an error USER NOT FOUND', async () => {
+        const response = await request(app)
+            .delete('/practica/user/deleteUser?soft=false')
+            .auth(tokenUserDeleted, { type: 'bearer' })
+            .expect(404)
+    })
+    test('should delete soft the user', async () => {
+        const response = await request(app)
+            .delete('/practica/user/deleteUser?soft=true')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(200)
+    })
+    test('should delete hard the user', async () => {
+        const response = await request(app)
+            .delete('/practica/user/deleteUser?soft=false')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .expect(200)
+    })
+})
+
 afterAll(async () => {
     server.close()
     await mongoose.connection.close()

@@ -167,7 +167,7 @@ const uploadCompanyData = async (req, res) => {
 }
 
 const getUser = async (req, res) => {
-    console.log("GET USER: ", req.user)
+    
     if(req.user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
@@ -180,6 +180,7 @@ const getUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     const soft = matchedData(req).soft
+    
     if(req.user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
@@ -190,7 +191,7 @@ const deleteUser = async (req, res) => {
             res.status(200).send(data)
         }
         else {
-            const data = await UserModel.findByIdAndDelete(user._id)
+            await UserModel.findByIdAndDelete(user._id)
             res.status(200).send("Usuario borrado correctamente")
         }
     }
