@@ -550,6 +550,64 @@ describe('recuperar contraseña 2º petición', () => {
     })
 })
 
+describe('recuperar contraseña 3º petición', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .post('/practica/user/recuperarPassword/changePassword')
+            .send({
+                "email": userRecuperarPassword2.email,
+                "code_verification": userRecuperarPassword2.code_verification
+            })
+            .set('Accept', 'application/json')
+            .expect(401)
+    })
+    test('should get an error due to lack of data', async () => {
+        const response = await request(app)
+            .post('/practica/user/recuperarPassword/changePassword')
+            .auth(tokenUserRecuperarPassword2, { type: 'bearer' })
+            .send({
+                "password": ""
+            })
+            .set('Accept', 'application/json')
+            .expect(403)
+    })
+    test('should get an error USER NOT FOUND', async () => {
+        const response = await request(app)
+            .post('/practica/user/recuperarPassword/changePassword')
+            .auth(tokenUserDeleted, { type: 'bearer' })
+            .send({
+                "password": "12345678"
+            })
+            .set('Accept', 'application/json')
+            .expect(404)
+    })
+    test('should get an error USER NOT VERIFICATED', async () => {
+        const response = await request(app)
+            .post('/practica/user/recuperarPassword/changePassword')
+            .auth(tokenUserRecuperarPassword1, { type: 'bearer' })
+            .send({
+                "password": "12345678"
+            })
+            .set('Accept', 'application/json')
+            .expect(401)
+    })
+    test('should verificate the user', async () => {
+        const response1 = await request(app)
+            .post('/practica/user/recuperarPassword/changePassword')
+            .auth(tokenUserRecuperarPassword2, { type: 'bearer' })
+            .send({
+                "password": "12345678"
+            })
+            .set('Accept', 'application/json')
+            .expect(200)
+        const response2 = await request(app)
+            .post('/practica/user/login')
+            .send({ "email": userRecuperarPassword2.email, "password": "12345678" })
+            .set('Accept', 'application/json')
+            .expect(200)
+    })
+})
+
 afterAll(async () => {
     server.close()
     await mongoose.connection.close()
