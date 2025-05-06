@@ -8,17 +8,17 @@ Content-Type: application/json
 {
     "name": "Probando",
     "age": 20,
-    "email": "jopeetass@gmail.com",
+    "email": "jopetis28@gmail.com",
     "password": "12345678"
 }
 
 ###
 POST http://localhost:3000/practica/user/register/validation
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2MTA5NzIzLCJleHAiOjE3NDYxMTY5MjN9.6i40t67bFNMWkCpFvj7PyZRGRhFgcL9Dk57lBup4mDU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODFhMzZmYmQwMWQzZjc1ODlhMGY3ZWMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2NTQ4NDc1LCJleHAiOjE3NDY1NTU2NzV9.nxFmf6isNX1v2xS5bbp6xu3OSZgtIB8m6Gwm0adNMeI
 Content-Type: application/json
 
 {
-    "code": "19e20c"
+    "code": "6407f1"
 }
 
 
@@ -28,6 +28,15 @@ Content-Type: application/json
 
 {
     "email": "jopeetass@gmail.com",
+    "password": "12345678"
+}
+
+###
+POST http://localhost:3000/practica/user/login
+Content-Type: application/json
+
+{
+    "email": "jopetis28@gmail.com",
     "password": "12345678"
 }
 
@@ -88,7 +97,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U0MTIzM
 
 ###
 DELETE http://localhost:3000/practica/user/deleteUser?soft=false
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2U0MTIzMDViNmJlYWE3OTZhMDEzZWQiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDcwNzUxLCJleHAiOjE3NDMwNzc5NTF9.wYIKyJx0q9qbDvWmhVGzfPGuBusRRPCysDW18mOajIw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODA4YTM5MDg2NWRjY2Q0YWMzNmRiZTUiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2NTQ4NTc1LCJleHAiOjE3NDY1NTU3NzV9.bLesu3C57g5nHyJuNV9MFakdDQ2AI9WvC7dqa7qUSx8
 
 
 
