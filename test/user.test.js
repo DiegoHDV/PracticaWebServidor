@@ -229,6 +229,36 @@ var userPruebaSoftDeleted = {
     "deleted":true,
     "verificate":false
 }
+var userRecuperarPassword1 = {
+    "name":"PruebaDeleted",
+    "age":23,
+    "email":"pruebapassword1@gmail.com",
+    "password":password,
+    "role":["user"],
+    "code_validation":"567890",
+    "validado":true,
+    "intentos":3,
+    "bloqueado":false,
+    "autonomo":true,
+    "deleted":false,
+    "verificate":false,
+    "code_verification": "123456"
+}
+var userRecuperarPassword2 = {
+    "name":"PruebaDeleted",
+    "age":23,
+    "email":"pruebapassword2@gmail.com",
+    "password":password,
+    "role":["user"],
+    "code_validation":"567890",
+    "validado":true,
+    "intentos":3,
+    "bloqueado":false,
+    "autonomo":true,
+    "deleted":false,
+    "verificate":true,
+    "code_verification": "123456"
+}
 
 beforeEach(async () => {
     await UserModel.deleteMany({})
@@ -241,6 +271,10 @@ beforeEach(async () => {
     tokenUserNoValidado = await tokenSign(userNoValidadoA)
     userBloqueadoNoValidadoA = await UserModel.create(userBloqueadoNoValidado)
     tokenUserBloqueadoNoValidado = await tokenSign(userBloqueadoNoValidadoA)
+    userRecuperarPassword1A = await UserModel.create(userRecuperarPassword1)
+    tokenUserRecuperarPassword1 = await tokenSign(userRecuperarPassword1A)
+    userRecuperarPassword2A = await UserModel.create(userRecuperarPassword2)
+    tokenUserRecuperarPassword2 = await tokenSign(userRecuperarPassword2A)
     spyEmail.mockClear()
     //spyLogo.mockClear()
 })
@@ -418,6 +452,34 @@ describe('delete user soft and hard', () => {
             .delete('/practica/user/deleteUser?soft=false')
             .auth(tokenUserPrueba, { type: 'bearer' })
             .expect(200)
+    })
+})
+
+describe('recuperar contraseña', () => {
+    test('should get an error due to lack of data', async () => {
+        const response = await request(app)
+            .get('/practica/user/recuperarPassword/verificationEmailCode')
+            .expect(403)
+    })
+    test('should get an error USER NOT FOUND', async () => {
+        const response = await request(app)
+            .get('/practica/user/recuperarPassword/verificationEmailCode')
+            .send({
+                "email": userPruebaSoftDeleted.email
+            })
+            .set('Accept', 'application/json')
+            .expect(404)
+    })
+    test('should recieve an email with the code verification', async () => {
+        const response = await request(app)
+            .get('/practica/user/recuperarPassword/verificationEmailCode')
+            .send({
+                "email": userPrueba.email
+            })
+            .set('Accept', 'application/json')
+            .expect(200)
+        expect(response.body.user.email).toEqual(userPrueba.email)
+        expect(spyEmail).toHaveBeenCalled()
     })
 })
 

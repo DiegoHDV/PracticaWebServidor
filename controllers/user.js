@@ -213,13 +213,13 @@ const verificationEmailCode = async (req, res) => {
             token: await tokenSign(userModified),
             user: userModified
         }
-        /*const emailOptions = {
+        const emailOptions = {
             'subject': "Recuperar contraseña",
             'text': `Vuelve a la página e introduce el código para poder recuperar la contraseña: ${code_verification}`,
             'to': user.email,
             'from': process.env.EMAIL
         }
-        sendEmail(emailOptions)*/
+        sendEmail(emailOptions)
 
         res.status(200).send(data)
     }  
