@@ -180,7 +180,7 @@ const getUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     const soft = matchedData(req).soft
-    
+
     if(req.user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
@@ -199,26 +199,30 @@ const deleteUser = async (req, res) => {
 
 }
 
-const verificationCode = async (req, res) => {
-    if(req.user == null){
+const verificationEmailCode = async (req, res) => {
+    const email = matchedData(req).email
+    const user = await UserModel.findOne({email: email})
+    
+    if(user == null){
         res.status(404).send("ERROR_USER_NOT_FOUND")
     }
     else{
         const code_verification = crypto.randomBytes(3).toString('hex')
-        const user = req.user
-        const data = await UserModel.findOneAndUpdate(user._id, { code_verification: code_verification })
-
-        const emailOptions = {
+        const userModified = await UserModel.findOneAndUpdate(user._id, { code_verification: code_verification })
+        const data = {
+            token: await tokenSign(userModified),
+            user: userModified
+        }
+        /*const emailOptions = {
             'subject': "Recuperar contraseña",
             'text': `Vuelve a la página e introduce el código para poder recuperar la contraseña: ${code_verification}`,
             'to': user.email,
             'from': process.env.EMAIL
         }
-        sendEmail(emailOptions)
+        sendEmail(emailOptions)*/
 
         res.status(200).send(data)
-    }
-    
+    }  
 }
 
 const verifyVerificationCode = async (req, res) => {
@@ -241,14 +245,10 @@ const verifyVerificationCode = async (req, res) => {
                     res.status(401).send("ERROR_INVALID_VERIFICATION_CODE")
                 }
                 else {
-                    const userVerificado = await UserModel.findByIdAndUpdate(user._id, { verificate: true }, { returnDocument: 'after' })
-                    const data = {
-                        token: await tokenSign(userVerificado),
-                        user: userVerificado
-                    }
+                    const data = await UserModel.findByIdAndUpdate(user._id, { verificate: true }, { returnDocument: 'after' })
+                    
                     res.status(200).send(data)
                 }
-
             }
         }
     }
@@ -322,7 +322,7 @@ module.exports = {
     uploadCompanyData,
     getUser,
     deleteUser,
-    verificationCode,
+    verificationEmailCode,
     verifyVerificationCode,
     updatePassword,
     invitePartners

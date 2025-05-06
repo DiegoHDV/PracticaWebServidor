@@ -1,8 +1,8 @@
 const express = require('express')
 const userRouter = express.Router()
 const app = express()
-const {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData, getUser, deleteUser, verificationCode, verifyVerificationCode, updatePassword, invitePartners} = require('../controllers/user.js')
-const {validatorCreateItem, validatorCode, validatorLogin, validatorPersonalData, validatorCompany, validatorDeleteUser, validatorVerificationCode, validatorNewPassword, validatorInvitePartners} = require('../validators/user.js')
+const {createItem, validationEmail, login, uploadImage, uploadPersonalData, uploadCompanyData, getUser, deleteUser, verificationEmailCode, verifyVerificationCode, updatePassword, invitePartners} = require('../controllers/user.js')
+const {validatorCreateItem, validatorCode, validatorLogin, validatorPersonalData, validatorCompany, validatorDeleteUser, validatorEmail, validatorVerificationCode, validatorNewPassword, validatorInvitePartners} = require('../validators/user.js')
 const {authMiddleware} = require('../middleware/sessionJwt.js')
 const { uploadMiddlewareMemory } = require('../utils/handleMemmory.js')
 const user = require('../models/user.js')
@@ -29,9 +29,9 @@ userRouter.get('/getUser', authMiddleware, getUser)
 
 userRouter.delete('/deleteUser', authMiddleware, validatorDeleteUser, deleteUser)
 
-userRouter.get('/recuperarPassword/verificationCode', authMiddleware, verificationCode)
+userRouter.get('/recuperarPassword/verificationEmailCode', validatorEmail, verificationEmailCode)
 
-userRouter.post('/recuperarPassword/verificationCode', authMiddleware, validatorVerificationCode, verifyVerificationCode)
+userRouter.post('/recuperarPassword/verifyCode', authMiddleware, validatorVerificationCode, verifyVerificationCode)
 
 userRouter.post('/recuperarPassword/changePassword', authMiddleware, validatorNewPassword, updatePassword)
 

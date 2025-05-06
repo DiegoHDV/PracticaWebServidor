@@ -52,6 +52,13 @@ const validatorDeleteUser = [
     }
 ]
 
+const validatorEmail = [
+    check("email").exists().notEmpty().isEmail(),
+    (req, res, next) => {
+        return validateResults(req, res, next)
+    }
+]
+
 const validatorVerificationCode = [
     check("email").exists().notEmpty().isEmail(),
     check("code_verification").exists().notEmpty().isLength({min:6, max:6}),
@@ -81,6 +88,7 @@ module.exports = {validatorCreateItem,
     validatorPersonalData, 
     validatorCompany, 
     validatorDeleteUser, 
+    validatorEmail,
     validatorVerificationCode,
     validatorNewPassword,
     validatorInvitePartners}

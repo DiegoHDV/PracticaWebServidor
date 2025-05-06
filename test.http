@@ -28,7 +28,7 @@ Content-Type: application/json
 
 {
     "email": "jopeetass@gmail.com",
-    "password": "12345678"
+    "password": "87654321"
 }
 
 ###
@@ -102,19 +102,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODFhMzZmY
 
 
 ###
-GET http://localhost:3000/practica/user/recuperarPassword/verificationCode
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMjk5MTI2MTRlZWVjYjJkZWFmMTAiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDc1NTMzLCJleHAiOjE3NDMwODI3MzN9.qlBSulG2Evf3jrvyPrVsxHhnfk5aImRA8Ec-tBh4z8c
-
-
-
-###
-POST http://localhost:3000/practica/user/recuperarPassword/verificationCode
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMjk5MTI2MTRlZWVjYjJkZWFmMTAiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDgyOTc4LCJleHAiOjE3NDMwOTAxNzh9.xrOw7qnexlPNFvs4K8wJ60MGjqeqsQz5yXvnZJ76FhM
+GET http://localhost:3000/practica/user/recuperarPassword/verificationEmailCode
 Content-Type: application/json
 
 {
-    "email": "jopetis28@gmail.com",
-    "code_verification": "0672b5"
+    "email": "jopeetass@gmail.com"
+}
+
+
+###
+POST http://localhost:3000/practica/user/recuperarPassword/verifyCode
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2NTUxODI5LCJleHAiOjE3NDY1NTkwMjl9.1toTweQOvTtqfN8fYwE8u591EHqFP3tlXdqQMBulU3w
+Content-Type: application/json
+
+{
+    "email": "jopeetass@gmail.com",
+    "code_verification": "955ef0"
 }
 
 
@@ -122,11 +125,11 @@ Content-Type: application/json
 
 ###
 POST http://localhost:3000/practica/user/recuperarPassword/changePassword
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RjMjk5MTI2MTRlZWVjYjJkZWFmMTAiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQzMDg1NDQ1LCJleHAiOjE3NDMwOTI2NDV9.6OAXHnmBfhZyHSNHkFVERZp5CFIYHIgCgFRXc_y8o8Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODEzODUxYmQ3ZDZlYjZmNzNiNzQzZmMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNzQ2NTUxODI5LCJleHAiOjE3NDY1NTkwMjl9.1toTweQOvTtqfN8fYwE8u591EHqFP3tlXdqQMBulU3w
 Content-Type: application/json
 
 {
-    "password": "12345678"
+    "password": "87654321"
 }
 
 
