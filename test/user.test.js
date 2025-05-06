@@ -455,7 +455,7 @@ describe('delete user soft and hard', () => {
     })
 })
 
-describe('recuperar contraseña', () => {
+describe('recuperar contraseña 1º petición', () => {
     test('should get an error due to lack of data', async () => {
         const response = await request(app)
             .get('/practica/user/recuperarPassword/verificationEmailCode')
@@ -480,6 +480,73 @@ describe('recuperar contraseña', () => {
             .expect(200)
         expect(response.body.user.email).toEqual(userPrueba.email)
         expect(spyEmail).toHaveBeenCalled()
+    })
+})
+
+describe('recuperar contraseña 2º petición', () => {
+    test('should get an error "NOT_SESSION"', async () => {
+        const response = await request(app)
+            .post('/practica/user/recuperarPassword/verifyCode')
+            .send({
+                "email": userRecuperarPassword1.email,
+                "code_verification": userRecuperarPassword1.code_verification
+            })
+            .set('Accept', 'application/json')
+            .expect(401)
+    })
+    test('should get an error due to lack of data', async () => {
+        const response = await request(app)
+            .post('/practica/user/recuperarPassword/verifyCode')
+            .auth(tokenUserRecuperarPassword1, { type: 'bearer' })
+            .send({
+                "email": userRecuperarPassword1.email
+            })
+            .set('Accept', 'application/json')
+            .expect(403)
+    })
+    test('should get an error USER NOT FOUND', async () => {
+        const response = await request(app)
+            .post('/practica/user/recuperarPassword/verifyCode')
+            .auth(tokenUserDeleted, { type: 'bearer' })
+            .send({
+                "email": userPruebaSoftDeleted.email,
+                "code_verification": userRecuperarPassword1.code_verification
+            })
+            .set('Accept', 'application/json')
+            .expect(404)
+    })
+    test('should get an error MATCHING EMAILS', async () => {
+        const response = await request(app)
+            .post('/practica/user/recuperarPassword/verifyCode')
+            .auth(tokenUserPrueba, { type: 'bearer' })
+            .send({
+                "email": userRecuperarPassword1.email,
+                "code_verification": userRecuperarPassword1.code_verification
+            })
+            .set('Accept', 'application/json')
+            .expect(401)
+    })
+    test('should get an error MATCHING EMAILS', async () => {
+        const response = await request(app)
+            .post('/practica/user/recuperarPassword/verifyCode')
+            .auth(tokenUserRecuperarPassword1, { type: 'bearer' })
+            .send({
+                "email": userRecuperarPassword1.email,
+                "code_verification": "000000"
+            })
+            .set('Accept', 'application/json')
+            .expect(401)
+    })
+    test('should verificate the user', async () => {
+        const response = await request(app)
+            .post('/practica/user/recuperarPassword/verifyCode')
+            .auth(tokenUserRecuperarPassword1, { type: 'bearer' })
+            .send({
+                "email": userRecuperarPassword1.email,
+                "code_verification": userRecuperarPassword1.code_verification
+            })
+            .set('Accept', 'application/json')
+            .expect(200)
     })
 })
 
